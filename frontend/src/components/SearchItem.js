@@ -19,7 +19,13 @@ function SearchItem(props) {
             <p>{artist.name}</p>
           </div>
           <div className="buttons">
-            <button>{<FontAwesomeIcon icon={faPlay} />}</button>
+            <button
+              onClick={() => {
+                props.sendVideoId(videoId);
+              }}
+            >
+              {<FontAwesomeIcon icon={faPlay} />}
+            </button>
 
             <button onClick={() => saveToPlaylist(videoId)}>
               {<FontAwesomeIcon icon={faListUl} />}

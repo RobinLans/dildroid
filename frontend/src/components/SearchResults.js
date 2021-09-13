@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import YouTubePlayer from "./YouTubePlayer";
+import PlayerControls from "./PlayerControls";
 
 //Components
 import SearchItem from "./SearchItem";
@@ -54,8 +56,40 @@ function SearchResults() {
         albumClick={handleAlbumClick}
         key={index}
         index={index}
+        sendVideoId={setNewVideoId}
       />
     ));
+  }
+
+  //YT Player stuff
+  const [videoId, setVideoId] = useState("");
+  const [player, setPlayer] = useState();
+  const [paused, setPaused] = useState(false);
+  const [showControls, setShowControls] = useState(false);
+
+  function setNewVideoId(id) {
+    setVideoId(id);
+    setShowControls(true);
+    setPaused(false);
+  }
+
+  function sendPlayerBack(player) {
+    // console.log(player);
+    setPlayer(player);
+  }
+
+  function pausePlayer() {
+    console.log("pause");
+    player.internalPlayer.pauseVideo();
+    setPaused(true);
+    // setAnimation(false);
+  }
+
+  function playPlayer() {
+    console.log("play");
+    player.internalPlayer.playVideo();
+    setPaused(false);
+    // whenUnPause();
   }
 
   return (
@@ -79,6 +113,22 @@ function SearchResults() {
         <div className={style.videotextlist}></div>
         <div className="searchResult">{musicList && searchResult()}</div>
       </div>
+      {videoId && (
+        <YouTubePlayer videoId={videoId} sendPlayerBack={sendPlayerBack} />
+      )}
+      {showControls && (
+        <PlayerControls
+          pauseVideo={pausePlayer}
+          playVideo={playPlayer}
+          // nextVideo={playNextVideoInPlaylist}
+          // previousVideo={playPreviuosVideoInPlaylist}
+          paused={paused}
+          // currentTime={currentTime}
+          // duration={duration}
+          // handleInputChange={handleInputChange}
+          // animation={animation}
+        />
+      )}
     </div>
   );
 }
