@@ -123,6 +123,15 @@ function SearchResults() {
     setAnimation(true);
   }
 
+  // function songHasEnded(ended) {
+  //   console.log(ended);
+  //   setCurrentIndex(currentIndex + 1);
+  //   console.log(currentIndex);
+  //   const songLength = musicList[currentIndex].duration;
+  //   console.log(songLength);
+  //   setDuration(songLength);
+  // }
+
   return (
     <div>
       <input type="text" ref={textInput} onKeyPress={handleKeypress} />
@@ -155,6 +164,7 @@ function SearchResults() {
             handleInputChange={handleInputChange}
             animation={animation}
             player={player}
+            // songHasEnded={songHasEnded}
           />
         )}
       </div>

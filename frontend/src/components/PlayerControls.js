@@ -26,8 +26,8 @@ function PlayerControls({
   nextVideo,
   previousVideo,
   player,
+  songHasEnded,
 }) {
-  const durationInMinutes = millisToMinutesAndSeconds(duration); //runs a utils function
   const progressBar = useRef(); //reference to progress bar
   const animationRef = useRef();
   const [currentTime, setCurrentTime] = useState(0);
@@ -53,7 +53,6 @@ function PlayerControls({
   }
 
   function whilePlaying() {
-    console.log("hejsan", progressBar.current.value);
     progressBar.current.value = currentTime;
   }
 
@@ -78,7 +77,9 @@ function PlayerControls({
             max={100}
           />
         </div>
-        <div className={style.currentTime}>{durationInMinutes}</div>
+        <div className={style.currentTime}>
+          {millisToMinutesAndSeconds(duration)}
+        </div>
       </div>
       <div className={style.buttons}>
         <button onClick={previousVideo}>

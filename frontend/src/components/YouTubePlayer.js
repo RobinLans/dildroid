@@ -16,17 +16,22 @@ function YouTubePlayer(props) {
   };
 
   function startVideo(e) {
-    console.log(e.target);
     videoPlayer.current.internalPlayer.playVideo();
+  }
+
+  function endTheVideo(e) {
+    console.log(e.target);
   }
 
   return (
     <div>
       <YouTube
-        // videoId={props.videoId}
         opts={opts}
         onReady={startVideo}
         ref={videoPlayer}
+        onEnd={(e) => {
+          endTheVideo(e);
+        }}
       />
     </div>
   );
