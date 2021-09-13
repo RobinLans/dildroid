@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import YouTubePlayer from "./YouTubePlayer";
-import PlayerControls from "./PlayerControls";
 
 //Components
 import SearchItem from "./SearchItem";
-// import YouTubePlayer from "./YouTubePlayer";
-// import PlayerControls from "./PlayerControls";
+import YouTubePlayer from "./YouTubePlayer";
+import PlayerControls from "./PlayerControls";
 
 import style from "../styles/SearchResults.module.css";
 
@@ -56,26 +54,32 @@ function SearchResults() {
         albumClick={handleAlbumClick}
         key={index}
         index={index}
-        sendVideoId={setNewVideoId}
+        giveBackIndex={giveBackIndexAndStartPlaylist}
       />
     ));
   }
 
   //YT Player stuff
-  const [videoId, setVideoId] = useState("");
   const [player, setPlayer] = useState();
   const [paused, setPaused] = useState(false);
   const [showControls, setShowControls] = useState(false);
-
-  function setNewVideoId(id) {
-    setVideoId(id);
-    setShowControls(true);
-    setPaused(false);
-  }
+  const [duration, setDuration] = useState("");
+  const [animation, setAnimation] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
 
   function sendPlayerBack(player) {
-    // console.log(player);
     setPlayer(player);
+  }
+
+  //This function gets the index and time from SearchItem
+  function giveBackIndexAndStartPlaylist(index, time) {
+    const arrayOfVideoIds = musicList.map((song) => song.videoId);
+    setShowControls(true);
+    whenUnPause();
+    setDuration(time);
+    setCurrentIndex(index);
+    player.internalPlayer.loadPlaylist(arrayOfVideoIds, index);
   }
 
   function pausePlayer() {
@@ -85,11 +89,38 @@ function SearchResults() {
     // setAnimation(false);
   }
 
+  //This function gets called in PlayerControls
   function playPlayer() {
     console.log("play");
     player.internalPlayer.playVideo();
+    whenUnPause();
+  }
+
+  //if we move the input slider in PlayerControls this function will run
+  function handleInputChange(e) {
+    player.internalPlayer.seekTo(e, true);
+    setCurrentTime(e);
+  }
+
+  function playNextVideoInPlaylist() {
+    player.internalPlayer.nextVideo();
+    whenUnPause();
+    const songLength = musicList[currentIndex + 1].duration;
+    setDuration(songLength);
+    if (currentIndex + 1 < musicList.length + 1)
+      setCurrentIndex(currentIndex + 1);
+  }
+  function playPreviuosVideoInPlaylist() {
+    player.internalPlayer.previousVideo();
+    whenUnPause();
+    const songLength = musicList[currentIndex - 1].duration;
+    setDuration(songLength);
+    if (currentIndex - 1 >= 0) setCurrentIndex(currentIndex - 1);
+  }
+
+  function whenUnPause() {
     setPaused(false);
-    // whenUnPause();
+    setAnimation(true);
   }
 
   return (
@@ -108,27 +139,25 @@ function SearchResults() {
       >
         Search
       </button>
-
       <div className={style.videowrapper}>
         <div className={style.videotextlist}></div>
         <div className="searchResult">{musicList && searchResult()}</div>
+        <YouTubePlayer sendPlayerBack={sendPlayerBack} />
+        {showControls && (
+          <PlayerControls
+            pauseVideo={pausePlayer}
+            playVideo={playPlayer}
+            nextVideo={playNextVideoInPlaylist}
+            previousVideo={playPreviuosVideoInPlaylist}
+            paused={paused}
+            currentTime={currentTime}
+            duration={duration}
+            handleInputChange={handleInputChange}
+            animation={animation}
+            player={player}
+          />
+        )}
       </div>
-      {videoId && (
-        <YouTubePlayer videoId={videoId} sendPlayerBack={sendPlayerBack} />
-      )}
-      {showControls && (
-        <PlayerControls
-          pauseVideo={pausePlayer}
-          playVideo={playPlayer}
-          // nextVideo={playNextVideoInPlaylist}
-          // previousVideo={playPreviuosVideoInPlaylist}
-          paused={paused}
-          // currentTime={currentTime}
-          // duration={duration}
-          // handleInputChange={handleInputChange}
-          // animation={animation}
-        />
-      )}
     </div>
   );
 }

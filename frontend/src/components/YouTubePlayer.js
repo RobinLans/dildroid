@@ -4,13 +4,13 @@ import YouTube from "react-youtube";
 function YouTubePlayer(props) {
   const videoPlayer = useRef();
 
+  //Here we send the player element back to SearchResult so that we can use there
   props.sendPlayerBack(videoPlayer.current);
 
   const opts = {
-    height: "390",
-    width: "640",
+    height: "0",
+    width: "0",
     playerVars: {
-      // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
     },
   };
@@ -23,7 +23,7 @@ function YouTubePlayer(props) {
   return (
     <div>
       <YouTube
-        videoId={props.videoId}
+        // videoId={props.videoId}
         opts={opts}
         onReady={startVideo}
         ref={videoPlayer}

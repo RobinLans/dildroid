@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faListUl, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 function SearchItem(props) {
-  let { name, artist, videoId, type } = props;
+  let { name, artist, videoId, type, duration } = props;
 
   let playList = [];
   function saveToPlaylist(id) {
@@ -21,7 +21,7 @@ function SearchItem(props) {
           <div className="buttons">
             <button
               onClick={() => {
-                props.sendVideoId(videoId);
+                props.giveBackIndex(props.index, duration);
               }}
             >
               {<FontAwesomeIcon icon={faPlay} />}
