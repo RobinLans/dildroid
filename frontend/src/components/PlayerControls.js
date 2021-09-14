@@ -7,6 +7,7 @@ import {
   faPause,
   faFastBackward,
   faFastForward,
+  faShare
 } from "@fortawesome/free-solid-svg-icons";
 import style from "../styles/PlayerControls.module.css";
 
@@ -50,6 +51,11 @@ function PlayerControls({
     } else if (!animation) {
       cancelAnimationFrame(animationRef.current);
     }
+  }
+
+  function shareUrl(){
+    let url = navigator.clipboard.writeText(`https://www.youtube.com/watch?v=${localStorage.getItem("id")}`)
+    console.log(url);
   }
 
   function whilePlaying() {
@@ -97,6 +103,10 @@ function PlayerControls({
 
         <button onClick={nextVideo}>
           <FontAwesomeIcon icon={faFastForward} />
+        </button>
+
+        <button className={style.share} onClick={shareUrl}>
+          <FontAwesomeIcon icon={faShare}/>
         </button>
       </div>
     </div>

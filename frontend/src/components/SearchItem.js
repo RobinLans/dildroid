@@ -21,6 +21,7 @@ function SearchItem(props) {
           <div className="buttons">
             <button
               onClick={() => {
+                localStorage.setItem("id", videoId)
                 props.giveBackIndex(props.index, duration);
               }}
             >

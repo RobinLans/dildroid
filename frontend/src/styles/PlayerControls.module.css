@@ -77,8 +77,10 @@
 
 button:hover {
   cursor: pointer;
+  background-color: rgb(83, 119, 107);
 }
 
 button:active {
   background: #99d98c;
 }
+
