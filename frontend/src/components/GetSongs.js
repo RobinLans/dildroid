@@ -21,6 +21,8 @@ function GetSongs({ searchType, playlistId, inputValue }) {
         `https://yt-music-api.herokuapp.com/api/yt/${searchType}/${inputValue}`
       );
       let result = await response.json();
+      console.log(result.content);
+
       setMusicList(result.content);
     }
   }
@@ -39,7 +41,7 @@ function GetSongs({ searchType, playlistId, inputValue }) {
         key={index}
         index={index}
         giveBackIndex={giveBackIndexAndStartPlaylist}
-        artistName={song.artist.name$}
+        artistName={song.artist.name}
       />
     ));
   }

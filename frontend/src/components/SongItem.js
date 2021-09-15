@@ -42,7 +42,8 @@ function SongItem(props) {
 
       {type === "artist" && (
         <div>
-          <h4>{name}</h4>
+          {" "}
+          <h4>{name}</h4>{" "}
         </div>
       )}
     </>
