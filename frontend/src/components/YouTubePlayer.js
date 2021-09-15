@@ -15,7 +15,7 @@ function YouTubePlayer(props) {
     },
   };
 
-  function startVideo(e) {
+  function startVideo() {
     videoPlayer.current.internalPlayer.playVideo();
   }
 

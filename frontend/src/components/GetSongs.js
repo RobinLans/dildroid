@@ -41,7 +41,6 @@ function GetSongs({ searchType, playlistId, inputValue }) {
         key={index}
         index={index}
         giveBackIndex={giveBackIndexAndStartPlaylist}
-        artistName={song.artist.name}
       />
     ));
   }

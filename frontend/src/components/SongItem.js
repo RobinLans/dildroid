@@ -4,12 +4,18 @@ import { faPlay, faListUl, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 function SongItem(props) {
   console.log(props);
-  let { name, artist, videoId, type, duration, title, artistName } = props;
+  let { name, artist, videoId, type, duration, title } = props;
 
-  console.log("fitta", artist);
+  let multipleArtist = [];
+  let artistString = "";
 
   if (title) name = title;
-  if (artistName) artist = artistName;
+  if (Array.isArray(artist)) {
+    artist.map((a) => {
+      multipleArtist.push(a.name);
+    });
+    artistString = multipleArtist.toString();
+  }
 
   let playList = [];
   function saveToPlaylist(id) {
@@ -18,32 +24,30 @@ function SongItem(props) {
 
   return (
     <>
-      <>
-        <div>
-          <h4>{name}</h4>
-          <p>{artist}</p>
-        </div>
-        <div className="buttons">
-          <button
-            onClick={() => {
-              localStorage.setItem("id", videoId);
-              props.giveBackIndex(props.index, duration);
-            }}
-          >
-            {<FontAwesomeIcon icon={faPlay} />}
-          </button>
+      <div>
+        <h4>{name}</h4>
+        {artist.name ? <p>{artist.name}</p> : <p>{artistString}</p>}
+        {typeof artist === "string" && <p>{artist}</p>}
+      </div>
+      <div className="buttons">
+        <button
+          onClick={() => {
+            localStorage.setItem("id", videoId);
+            props.giveBackIndex(props.index, duration);
+          }}
+        >
+          {<FontAwesomeIcon icon={faPlay} />}
+        </button>
 
-          <button onClick={() => saveToPlaylist(videoId)}>
-            {<FontAwesomeIcon icon={faListUl} />}
-          </button>
-          <button>{<FontAwesomeIcon icon={faHeart} />}</button>
-        </div>{" "}
-      </>
+        <button onClick={() => saveToPlaylist(videoId)}>
+          {<FontAwesomeIcon icon={faListUl} />}
+        </button>
+        <button>{<FontAwesomeIcon icon={faHeart} />}</button>
+      </div>
 
       {type === "artist" && (
         <div>
-          {" "}
-          <h4>{name}</h4>{" "}
+          <h4>{name}</h4>
         </div>
       )}
     </>

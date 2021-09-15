@@ -14,7 +14,6 @@ function Searchbar() {
 
   const handleKeypress = (e) => {
     if (e.key === "Enter") {
-      console.log(textInput.current.value);
       setSearchString(textInput.current.value);
       textInput.current.value = "";
     }
