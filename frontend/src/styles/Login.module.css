@@ -1,0 +1,77 @@
+.hidden {
+  opacity: 0;
+}
+
+.loginModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 15rem;
+  width: 20rem;
+  background-color: #184e77;
+  border-radius: 10px;
+}
+
+.exitBtn {
+  position: absolute;
+  left: 1px;
+  top: 5px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 1rem;
+}
+
+.exitBtn:hover {
+  cursor: pointer;
+}
+
+.loginModal form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 3rem 2rem 3rem;
+}
+
+.loginModal form input {
+  margin-top: 0.5rem;
+  height: 1.5rem;
+  border-radius: 8px;
+  border: none;
+  border: 2px solid transparent;
+  color: #184e77;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.loginModal form input:focus {
+  border: 2px solid #99d98c;
+  outline: none;
+}
+
+.loginModal form label {
+  margin-top: 0.5rem;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#pw {
+  margin-bottom: 1rem;
+}
+
+.loginBtn {
+  width: 5rem;
+  margin: 1rem auto auto auto;
+}
+
+.loginBtn:hover {
+  cursor: pointer;
+}
+
+.loginModal h1 {
+  color: #fff;
+  text-align: center;
+  margin-top: 6rem;
+}
