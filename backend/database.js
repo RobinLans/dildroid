@@ -46,4 +46,10 @@ module.exports = {
 
     return run(query, user);
   },
+  getPlaylists(userId) {
+    return all(`SELECT * FROM Playlist WHERE user_id = ${userId}`);
+  },
+  getPlaylistSongs(id) {
+    return all(`SELECT * FROM Playlist_songs WHERE playlist_id = ${id}`);
+  },
 };

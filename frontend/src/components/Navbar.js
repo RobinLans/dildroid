@@ -6,9 +6,9 @@ function Navbar() {
     <div>
       <Link to="/">Search</Link>
       <br />
-      <Link to="/Playlists">Playlists</Link>
+      <Link to="/playlists">Playlists</Link>
       <br />
-      <Link to="/Favourites">Favourites</Link>
+      <Link to="/favorites">Favorites</Link>
       <br />
       <Link to="/login">Login</Link>
     </div>

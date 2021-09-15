@@ -1,60 +1,45 @@
 import React, { useState, useEffect } from "react";
 
 //Components
-import SearchItem from "./SearchItem";
+import SongItem from "./SongItem";
 import YouTubePlayer from "./YouTubePlayer";
 import PlayerControls from "./PlayerControls";
 
 import style from "../styles/SearchResults.module.css";
 
-function SearchResults() {
+function GetSongs({ searchType, playlistId, inputValue }) {
   const [musicList, setMusicList] = useState([]);
-  const [searchType, setSearchType] = useState("songs");
-
-  let textInput = React.createRef();
 
   async function fetchMusic() {
-    if (!textInput.current.value) return;
-
-    let response = await fetch(
-      `https://yt-music-api.herokuapp.com/api/yt/${searchType}/${textInput.current.value}`
-    );
-    let result = await response.json();
-    setMusicList(result.content);
-  }
-
-  function setType(e) {
-    e.preventDefault();
-    setSearchType(e.target.value);
-  }
-
-  function handleAlbumClick(albumName) {
-    textInput.current.value = albumName;
-    setSearchType("songs");
+    if (playlistId) {
+      const response = await fetch(`/api/playlist/${playlistId}`);
+      let result = await response.json();
+      console.log(result.songs);
+      setMusicList(result.songs);
+    } else if (inputValue) {
+      const response = await fetch(
+        `https://yt-music-api.herokuapp.com/api/yt/${searchType}/${inputValue}`
+      );
+      let result = await response.json();
+      setMusicList(result.content);
+    }
   }
 
   useEffect(() => {
     fetchMusic();
   }, [searchType]);
 
-  const handleKeypress = (e) => {
-    if (e.key === "Enter") {
-      fetchMusic();
-      textInput.current.value = "";
-    }
-  };
-
   // If musicList is true this function will run (See line 150)
   // The function maps through musicList and mounts SearchItem on every instance,
   // it also sends down props that we can use later
-  function searchResult() {
-    return musicList.map((searchResult, index) => (
-      <SearchItem
-        {...searchResult}
-        albumClick={handleAlbumClick}
+  function listSongs() {
+    return musicList.map((song, index) => (
+      <SongItem
+        {...song}
         key={index}
         index={index}
         giveBackIndex={giveBackIndexAndStartPlaylist}
+        artistName={song.artist.name$}
       />
     ));
   }
@@ -123,34 +108,11 @@ function SearchResults() {
     setAnimation(true);
   }
 
-  // function songHasEnded(ended) {
-  //   console.log(ended);
-  //   setCurrentIndex(currentIndex + 1);
-  //   console.log(currentIndex);
-  //   const songLength = musicList[currentIndex].duration;
-  //   console.log(songLength);
-  //   setDuration(songLength);
-  // }
-
   return (
     <div>
-      <input type="text" ref={textInput} onKeyPress={handleKeypress} />
-      <select value={searchType} onChange={setType}>
-        <option value="songs">Songs</option>
-        <option value="artists">Artists</option>
-        <option value="albums">Album</option>
-      </select>
-      <button
-        onClick={() => {
-          fetchMusic();
-          textInput.current.value = "";
-        }}
-      >
-        Search
-      </button>
       <div className={style.videowrapper}>
         <div className={style.videotextlist}></div>
-        <div className="searchResult">{musicList && searchResult()}</div>
+        <div className="searchResult">{musicList && listSongs()}</div>
         <YouTubePlayer sendPlayerBack={sendPlayerBack} />
         {showControls && (
           <PlayerControls
@@ -164,7 +126,6 @@ function SearchResults() {
             handleInputChange={handleInputChange}
             animation={animation}
             player={player}
-            // songHasEnded={songHasEnded}
           />
         )}
       </div>
@@ -172,4 +133,4 @@ function SearchResults() {
   );
 }
 
-export default SearchResults;
+export default GetSongs;
