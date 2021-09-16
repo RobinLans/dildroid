@@ -30,12 +30,14 @@ module.exports = {
         const user = all(
             `SELECT * FROM Users WHERE email = '${credentials.email}'`
         );
+
+        if (user.length <= 0) return false;
         //Only need to check user[0] due to unique constraint on email.
         const checkCredentials = await comparePasswordToHash(
             credentials.password,
             user[0].password
         );
-        console.log(checkCredentials, "cred");
+
         return checkCredentials;
     },
     async registerUser(user) {
