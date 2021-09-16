@@ -14,7 +14,6 @@ app.post("/api/register-user/", (req, res) => {
 // Gets login credentials in the body and then checks if those credentials matches with any credentials in the database.
 // If there is a match, the response is { success: true }, if there is no match then the respnse is { success: false }
 app.post("/api/login", async(req, res) => {
-    console.log("hej");
     const loginCredentials = req.body;
 
     const userExists = await db.checkIfUserExists(loginCredentials);
