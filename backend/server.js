@@ -28,7 +28,6 @@ app.post("/api/login", async(req, res) => {
 });
 
 app.get("/api/:username", (req, res) => {
-    console.log('hej')
     let username = req.params.username;
     let playLists = db.getPlaylistByUser(username)
     res.json(playLists)
