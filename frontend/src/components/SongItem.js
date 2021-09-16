@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faListUl, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 function SongItem(props) {
   console.log(props);
@@ -40,7 +40,7 @@ function SongItem(props) {
         </button>
 
         <button onClick={() => saveToPlaylist(videoId)}>
-          {<FontAwesomeIcon icon={faListUl} />}
+          {<FontAwesomeIcon icon={faPlus} />}
         </button>
         <button>{<FontAwesomeIcon icon={faHeart} />}</button>
       </div>

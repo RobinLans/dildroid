@@ -12,7 +12,7 @@ function GetSongs({ searchType, playlistId, inputValue }) {
 
   async function fetchMusic() {
     if (playlistId) {
-      const response = await fetch(`/api/playlist/${playlistId}`);
+      const response = await fetch(`/playlist/${playlistId}`);
       let result = await response.json();
       console.log(result.songs);
       setMusicList(result.songs);
@@ -31,7 +31,7 @@ function GetSongs({ searchType, playlistId, inputValue }) {
     fetchMusic();
   }, [searchType]);
 
-  // If musicList is true this function will run (See line 150)
+  // If musicList is true this function will run (See line 116)
   // The function maps through musicList and mounts SearchItem on every instance,
   // it also sends down props that we can use later
   function listSongs() {
@@ -69,7 +69,6 @@ function GetSongs({ searchType, playlistId, inputValue }) {
   }
 
   function pausePlayer() {
-    console.log("pause");
     player.internalPlayer.pauseVideo();
     setPaused(true);
     // setAnimation(false);
@@ -77,7 +76,6 @@ function GetSongs({ searchType, playlistId, inputValue }) {
 
   //This function gets called in PlayerControls
   function playPlayer() {
-    console.log("play");
     player.internalPlayer.playVideo();
     whenUnPause();
   }

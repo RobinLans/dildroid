@@ -7,7 +7,7 @@ function Playlists() {
 
   async function fetchUsersPlaylists() {
     let id = 9;
-    let result = await fetch(`/api/users-playlist/${id}`);
+    let result = await fetch(`/users-playlist/${id}`);
     let data = await result.json();
     setUserPlaylists(data.playlists);
   }

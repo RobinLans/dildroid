@@ -30,7 +30,7 @@ function Login() {
       password,
     };
 
-    let response = await fetch("/api/login", {
+    let response = await fetch("/login", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {
