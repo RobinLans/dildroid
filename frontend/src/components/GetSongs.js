@@ -9,6 +9,7 @@ import style from "../styles/SearchResults.module.css";
 
 function GetSongs({ searchType, playlistId, inputValue }) {
   const [musicList, setMusicList] = useState([]);
+  console.log(playlistId);
 
   async function fetchMusic() {
     if (playlistId) {
@@ -29,7 +30,7 @@ function GetSongs({ searchType, playlistId, inputValue }) {
 
   useEffect(() => {
     fetchMusic();
-  }, [searchType]);
+  }, [inputValue]);
 
   // If musicList is true this function will run (See line 116)
   // The function maps through musicList and mounts SearchItem on every instance,

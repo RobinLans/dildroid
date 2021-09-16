@@ -45,11 +45,11 @@ function SongItem(props) {
         <button>{<FontAwesomeIcon icon={faHeart} />}</button>
       </div>
 
-      {type === "artist" && (
+      {/* {type === "artist" && (
         <div>
           <h4>{name}</h4>
         </div>
-      )}
+      )} */}
     </>
   );
 }

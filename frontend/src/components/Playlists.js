@@ -6,17 +6,16 @@ function Playlists() {
   const [userPlaylists, setUserPlaylists] = useState([]);
 
   async function fetchUsersPlaylists() {
-    let id = 9;
-    let result = await fetch(`/users-playlist/${id}`);
+    let userId = 9;
+    let result = await fetch(`/users-playlist/${userId}`);
     let data = await result.json();
+    console.log(data.playlists);
     setUserPlaylists(data.playlists);
   }
 
   useEffect(() => {
     fetchUsersPlaylists();
   }, []);
-
-  console.log(userPlaylists);
 
   function goToPlaylist(id) {
     history.push("/user-playlist/" + id);

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import GetSongs from "./GetSongs";
 
 function Searchbar() {
@@ -14,21 +14,25 @@ function Searchbar() {
 
   const handleKeypress = (e) => {
     if (e.key === "Enter") {
+      setSearchString();
       setSearchString(textInput.current.value);
       textInput.current.value = "";
     }
   };
+
+  console.log("SearchString", searchString);
 
   return (
     <div>
       <input type="text" ref={textInput} onKeyPress={handleKeypress} />
       <select value={searchType} onChange={setType}>
         <option value="songs">Songs</option>
-        <option value="artists">Artists</option>
+        {/* <option value="artists">Artists</option> */}
       </select>
       <button
         onClick={() => {
           console.log(textInput.current.value);
+          setSearchString();
           setSearchString(textInput.current.value);
           textInput.current.value = "";
         }}

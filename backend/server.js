@@ -47,6 +47,20 @@ app.get("/api/users-playlist/:id", (req, res) => {
   res.json(result);
 });
 
+// app.get("/api/users-playlist/:id", (req, res) => {
+//   const playlistId = req.params.id;
+
+//   const songs = db.getPlaylistSongs(playlistId);
+
+//   let result = { success: false };
+//   if (songs) {
+//     result.success = true;
+//     result.songs = songs;
+//   }
+
+//   res.json(result);
+// });
+
 app.get("/api/playlist/:id", (req, res) => {
   const playlistId = req.params.id;
 
@@ -61,11 +75,13 @@ app.get("/api/playlist/:id", (req, res) => {
   res.json(result);
 });
 
-app.get("/api/:username", (req, res) => {
-  let username = req.params.username;
-  let playLists = db.getPlaylistByUser(username);
-  res.json(playLists);
-});
+// app.get("/api/users-playlist/:id", (req, res) => {
+//   let userId = req.params.username;
+//   console.log(username);
+//   let playLists = db.getPlaylistSongs(userId);
+//   // let playLists = db.getPlaylistByUser(userId);
+//   res.json(playLists);
+// });
 
 app.listen(8000, () => {
   console.log("Server started on port 8000");
