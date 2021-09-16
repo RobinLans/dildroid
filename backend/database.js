@@ -35,7 +35,6 @@ module.exports = {
       credentials.password,
       user[0].password
     );
-    console.log(checkCredentials, "cred");
     return checkCredentials;
   },
   async registerUser(user) {
@@ -51,5 +50,15 @@ module.exports = {
   },
   getPlaylistSongs(id) {
     return all(`SELECT * FROM Playlist_songs WHERE playlist_id = ${id}`);
+  },
+
+  getPlaylistByUser(username) {
+    const query =
+      all(`SELECT Playlist_songs.title, Playlist_songs.videoId, Playlist_songs.artist, Playlist_songs.duration, Playlist.name 
+    FROM Playlist_songs
+    INNER JOIN Playlist ON Playlist_songs.playlist_id = Playlist.id
+    INNER JOIN Users ON Playlist.user_id = Users.id
+    WHERE Users.name = '${username}'`);
+    return query;
   },
 };
