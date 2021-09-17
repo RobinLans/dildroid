@@ -27,7 +27,21 @@ app.post("/api/login", async (req, res) => {
 });
 
 //Add a new playlist to a specific user
-app.post("/api/add-playlist", (req, res) => {});
+app.post("/api/add-playlist", (req, res) => {
+  const playlistToAdd = req.body;
+
+  const addPlaylistToDb = db.addPlaylist(playlistToAdd);
+
+  let result = { success: false };
+
+  console.log(addPlaylistToDb);
+
+  if (addPlaylistToDb) {
+    result.success = true;
+  }
+
+  res.json(result);
+});
 
 //Add a song to a specific playlist
 app.post("/api/add-song", (req, res) => {});

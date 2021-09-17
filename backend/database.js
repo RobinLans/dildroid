@@ -45,15 +45,16 @@ module.exports = {
 
     return run(query, user);
   },
+
   getPlaylists(userId) {
     return all(`SELECT * FROM Playlist WHERE user_id = ${userId}`);
   },
+
   getPlaylistSongs(id) {
     return all(`SELECT * FROM Playlist_songs WHERE playlist_id = ${id}`);
   },
 
   getPlaylistByUser(username) {
-    console.log(username);
     const query =
       all(`SELECT Playlist_songs.title, Playlist_songs.videoId, Playlist_songs.artist, Playlist_songs.duration, Playlist.name 
     FROM Playlist_songs
@@ -62,5 +63,12 @@ module.exports = {
     WHERE Users.id = '${username}'`);
     console.log(query);
     return query;
+  },
+
+  addPlaylist(playlist) {
+    const query = `INSERT INTO Playlist(name, user_id)
+    VALUES(:name, :userId)`;
+
+    return run(query, playlist);
   },
 };
