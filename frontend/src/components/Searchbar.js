@@ -4,6 +4,7 @@ import GetSongs from "./GetSongs";
 function Searchbar() {
   const [searchType, setSearchType] = useState("songs");
   const [searchString, setSearchString] = useState("");
+  const [searched, setSearched] = useState(false);
 
   let textInput = useRef();
 
@@ -17,17 +18,23 @@ function Searchbar() {
       setSearchString();
       setSearchString(textInput.current.value);
       textInput.current.value = "";
+      setSearched(true);
     }
   };
 
-  console.log("SearchString", searchString);
+  // If searched is true, we have to set it to false again so that we can toggle back and forth between true and false
+  if (searched) {
+    setTimeout(() => {
+      setSearched(false);
+    }, 500);
+  }
 
   return (
     <div>
       <input type="text" ref={textInput} onKeyPress={handleKeypress} />
       <select value={searchType} onChange={setType}>
         <option value="songs">Songs</option>
-        {/* <option value="artists">Artists</option> */}
+        <option value="artists">Artists</option>
       </select>
       <button
         onClick={() => {
@@ -35,12 +42,17 @@ function Searchbar() {
           setSearchString();
           setSearchString(textInput.current.value);
           textInput.current.value = "";
+          setSearched(true);
         }}
       >
         Search
       </button>
       {searchString && (
-        <GetSongs searchType={searchType} inputValue={searchString} />
+        <GetSongs
+          searchType={searchType}
+          inputValue={searchString}
+          searched={searched}
+        />
       )}
     </div>
   );
