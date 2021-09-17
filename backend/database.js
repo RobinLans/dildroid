@@ -64,5 +64,17 @@ module.exports = {
     return query;
   },
 
-  addSong(song) {},
+  addPlaylist(playlist) {
+    const query = `INSERT INTO Playlist(name, user_id)
+    VALUES(:name, :userId)`;
+
+    return run(query, playlist);
+  },
+
+  addSong(song) {
+    const query = `INSERT INTO Playlist_songs(playlist_id, title, videoId, artist, duration)
+    VALUES(:playlistId, :title, :videoId, :artist, :duration)`;
+
+    return run(query, song);
+  },
 };

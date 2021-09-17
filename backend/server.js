@@ -34,8 +34,6 @@ app.post("/api/add-playlist", (req, res) => {
 
   let result = { success: false };
 
-  console.log(addPlaylistToDb);
-
   if (addPlaylistToDb) {
     result.success = true;
   }
@@ -49,6 +47,14 @@ app.post("/api/add-song", (req, res) => {
   console.log(songToAdd);
 
   const addSongToPlaylist = db.addSong(songToAdd);
+
+  let result = { success: false };
+
+  if (addSongToPlaylist) {
+    result.success = true;
+  }
+
+  res.json(result);
 });
 
 //Get all playlists for a specific user
