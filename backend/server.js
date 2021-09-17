@@ -27,10 +27,29 @@ app.post("/api/login", async (req, res) => {
 });
 
 //Add a new playlist to a specific user
-app.post("/api/add-playlist", (req, res) => {});
+app.post("/api/add-playlist", (req, res) => {
+  const playlistToAdd = req.body;
+
+  const addPlaylistToDb = db.addPlaylist(playlistToAdd);
+
+  let result = { success: false };
+
+  console.log(addPlaylistToDb);
+
+  if (addPlaylistToDb) {
+    result.success = true;
+  }
+
+  res.json(result);
+});
 
 //Add a song to a specific playlist
-app.post("/api/add-song", (req, res) => {});
+app.post("/api/add-song", (req, res) => {
+  const songToAdd = req.body;
+  console.log(songToAdd);
+
+  const addSongToPlaylist = db.addSong(songToAdd);
+});
 
 //Get all playlists for a specific user
 app.get("/api/users-playlist/:id", (req, res) => {
@@ -47,20 +66,7 @@ app.get("/api/users-playlist/:id", (req, res) => {
   res.json(result);
 });
 
-// app.get("/api/users-playlist/:id", (req, res) => {
-//   const playlistId = req.params.id;
-
-//   const songs = db.getPlaylistSongs(playlistId);
-
-//   let result = { success: false };
-//   if (songs) {
-//     result.success = true;
-//     result.songs = songs;
-//   }
-
-//   res.json(result);
-// });
-
+//Get a specific playlist based on id
 app.get("/api/playlist/:id", (req, res) => {
   const playlistId = req.params.id;
 
@@ -75,7 +81,7 @@ app.get("/api/playlist/:id", (req, res) => {
   res.json(result);
 });
 
-// app.get("/api/users-playlist/:id", (req, res) => {
+// app.get("/api/users-playlist/:username", (req, res) => {
 //   let userId = req.params.username;
 //   console.log(username);
 //   let playLists = db.getPlaylistSongs(userId);
