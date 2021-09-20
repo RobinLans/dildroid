@@ -20,6 +20,7 @@ function Login() {
     const acceptedLogin = await checkIfUserExists(email, password);
 
     if (acceptedLogin.success) {
+      localStorage.setItem('UserId',acceptedLogin.userId )
       setLogin(true);
     }
   }
@@ -39,6 +40,7 @@ function Login() {
     });
 
     const data = await response.json();
+    console.log(data);
 
     return data;
   }
@@ -46,9 +48,10 @@ function Login() {
   return (
     <>
       <div className={style.loginModal}>
+        {" "}
         {!login && (
           <form onSubmit={submitForm}>
-            <label htmlFor="email">E-Mail</label>
+            <label htmlFor="email"> E - Mail </label>{" "}
             <input
               type="text"
               placeholder="E-Mail"
@@ -56,8 +59,8 @@ function Login() {
               name="email"
               onChange={handleEmailChange}
               value={email}
-            />
-            <label htmlFor="pw">Password</label>
+            />{" "}
+            <label htmlFor="pw"> Password </label>{" "}
             <input
               type="password"
               placeholder="Password"
@@ -65,12 +68,12 @@ function Login() {
               name="pw"
               onChange={handlePwChange}
               value={password}
-            />
+            />{" "}
             <input className={style.loginBtn} type="submit" value="Login" />
           </form>
-        )}
-        {login && <h1>Inloggad</h1>}
-      </div>
+        )}{" "}
+        {login && <h1> Inloggad </h1>}{" "}
+      </div>{" "}
     </>
   );
 }

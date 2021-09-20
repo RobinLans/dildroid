@@ -7,7 +7,7 @@ function AddToPlaylist({ ...props }) {
   console.log(userPlaylists);
 
   async function fetchUsersPlaylists() {
-    let userId = 9;
+    let userId = localStorage.getItem("UserId");
     let result = await fetch(`/users-playlist/${userId}`);
     let data = await result.json();
     console.log(data.playlists);
@@ -43,7 +43,7 @@ function AddToPlaylist({ ...props }) {
   async function addNewPlaylist() {
     const newPlaylist = {
       name: textInput.current.value,
-      userId: 9,
+      userId: localStorage.getItem("UserId"),
     };
 
     let response = await fetch("/add-playlist", {
@@ -67,9 +67,10 @@ function AddToPlaylist({ ...props }) {
     <>
       <div className={style.modal}>
         <button onClick={props.whenAdded} className={style.exitBtn}>
-          X
-        </button>
+          X{" "}
+        </button>{" "}
         <div className={style.playlistContainer}>
+          {" "}
           {userPlaylists &&
             userPlaylists.map((playlist) => (
               <div className="songContainer" key={playlist.id}>
@@ -78,11 +79,12 @@ function AddToPlaylist({ ...props }) {
                     addToPlaylist(playlist.id);
                   }}
                 >
-                  {playlist.name}
-                </h3>
+                  {" "}
+                  {playlist.name}{" "}
+                </h3>{" "}
               </div>
-            ))}
-        </div>
+            ))}{" "}
+        </div>{" "}
         <div className={style.newPlaylist}>
           <input
             className={style.nameInput}
@@ -90,9 +92,9 @@ function AddToPlaylist({ ...props }) {
             ref={textInput}
             placeholder="Add new playlist"
           />
-          <button onClick={addNewPlaylist}>+</button>
-        </div>
-      </div>
+          <button onClick={addNewPlaylist}> + </button>{" "}
+        </div>{" "}
+      </div>{" "}
     </>
   );
 }
