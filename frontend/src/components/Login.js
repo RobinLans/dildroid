@@ -14,13 +14,22 @@ function Login() {
     setPassword(e.target.value);
   }
 
+  function saveToken(token) {
+    return new Promise((resolve, reject) => {
+      localStorage.setItem("auth", token);
+
+      resolve("Done");
+    });
+  }
+
   async function submitForm(e) {
     e.preventDefault();
 
     const acceptedLogin = await checkIfUserExists(email, password);
+    console.log(acceptedLogin);
 
     if (acceptedLogin.success) {
-      localStorage.setItem('UserId',acceptedLogin.userId )
+      await saveToken(acceptedLogin.token);
       setLogin(true);
     }
   }
