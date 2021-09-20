@@ -48,18 +48,6 @@ module.exports = {
         return all(`SELECT * FROM Playlist_songs WHERE playlist_id = ${id}`);
     },
 
-    getPlaylistByUser(username) {
-        console.log(username);
-        const query =
-            all(`SELECT Playlist_songs.title, Playlist_songs.videoId, Playlist_songs.artist, Playlist_songs.duration, Playlist.name 
-    FROM Playlist_songs
-    INNER JOIN Playlist ON Playlist_songs.playlist_id = Playlist.id
-    INNER JOIN Users ON Playlist.user_id = Users.id
-    WHERE Users.id = '${username}'`);
-        console.log(query);
-        return query;
-    },
-
     addPlaylist(playlist) {
         const query = `INSERT INTO Playlist(name, user_id)
     VALUES(:name, :userId)`;
