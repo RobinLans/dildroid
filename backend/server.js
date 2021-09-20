@@ -9,7 +9,8 @@ app.post("/api/register-user/", (req, res) => {
 
   let insert = db.registerUser(user);
   user.id = insert.lastInsertRowid;
-  res.json(user);
+
+  res.json("Reg")
 });
 
 // If there is a match, the response is { success: true }, if there is no match then the respnse is { success: false }

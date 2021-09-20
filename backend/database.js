@@ -38,12 +38,17 @@ module.exports = {
     return checkCredentials;
   },
   async registerUser(user) {
+    try{
     user.password = await hashPassword(user.password);
-
+    
     const query =
       "INSERT INTO Users(name, email, password) VALUES(:name, :email, :password)";
 
     return run(query, user);
+    }
+    catch(error){
+      console.log(error)
+    }
   },
 
   getPlaylists(userId) {
