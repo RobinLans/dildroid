@@ -30,6 +30,8 @@ function Login() {
 
     if (acceptedLogin.success) {
       await saveToken(acceptedLogin.token);
+      localStorage.setItem("UserId", acceptedLogin.userId);
+      localStorage.setItem("user_object", JSON.stringify(acceptedLogin));
       setLogin(true);
     }
   }
