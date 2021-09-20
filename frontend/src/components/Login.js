@@ -20,7 +20,8 @@ function Login() {
     const acceptedLogin = await checkIfUserExists(email, password);
 
     if (acceptedLogin.success) {
-      localStorage.setItem('UserId',acceptedLogin.userId )
+      localStorage.setItem('UserId', acceptedLogin.userId )
+      localStorage.setItem('user_object', JSON.stringify(acceptedLogin) )
       setLogin(true);
     }
   }
