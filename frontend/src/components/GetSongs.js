@@ -21,7 +21,6 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     if (playlistId) {
       const response = await fetch(`/playlist/${playlistId}`);
       let result = await response.json();
-      console.log(result.songs);
       setMusicList(result.songs);
     } else if (inputValue) {
       const response = await fetch(
@@ -34,7 +33,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     }
   }
 
-  if (searched) {
+  if (searched || playlistId) {
     fetchMusic();
   }
 
