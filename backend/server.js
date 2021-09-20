@@ -5,12 +5,22 @@ const app = express();
 
 app.use(express.json());
 
-app.post("/api/register-user/", (req, res) => {
+app.post("/api/register-user/", async(req, res) => {
     let user = req.body;
-
-    let insert = db.registerUser(user);
+    let result = { success: false }
+    let insert = await db.registerUser(user);
     user.id = insert.lastInsertRowid;
-    res.json(user);
+    if (insert) {
+        result.success = true
+        result.message = 'User registered'
+    } else {
+        result.message = 'User already exists'
+    }
+
+
+
+
+    res.json(result);
 });
 
 // If there is a match, the response is { success: true }, if there is no match then the respnse is { success: false }

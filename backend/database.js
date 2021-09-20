@@ -22,7 +22,7 @@ function all(query, params = {}) {
 function run(query, params = {}) {
     // prepare statement
     const stmt = conn.prepare(query);
-    return stmt.run(params);
+    return stmt.run(params)
 }
 
 module.exports = {
@@ -34,8 +34,13 @@ module.exports = {
         return user;
     },
     async registerUser(user) {
-        user.password = await hashPassword(user.password);
+        const checkUser = await this.checkIfUserExists(user)
+        if (checkUser[0] && checkUser[0].email === user.email) {
+            console.log('Already exist')
+            return false
+        }
 
+        user.password = await hashPassword(user.password);
         const query =
             "INSERT INTO Users(name, email, password) VALUES(:name, :email, :password)";
 
