@@ -106,6 +106,23 @@ app.get("/api/playlist/:id", (req, res) => {
   res.json(result);
 });
 
+app.post("/api/loggedin", async (req, res) => {
+  console.log(req.headers);
+  const token = req.headers.auth_token;
+
+  let result = { loggedIn: false };
+
+  const tokenVerified = jwt.verify(token, "a1b1c1");
+
+  console.log(tokenVerified);
+
+  if (tokenVerified) {
+    result.loggedIn = true;
+  }
+
+  res.json(result);
+});
+
 // app.get("/api/users-playlist/:username", (req, res) => {
 //   let userId = req.params.username;
 //   console.log(username);

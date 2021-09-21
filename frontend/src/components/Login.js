@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import style from "../styles/Login.module.css";
 
 function Login() {
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [login, setLogin] = useState(false);
@@ -33,6 +35,9 @@ function Login() {
       localStorage.setItem("UserId", acceptedLogin.userId);
       localStorage.setItem("user_object", JSON.stringify(acceptedLogin));
       setLogin(true);
+      setTimeout(() => {
+        history.push("/");
+      }, 1000);
     }
   }
 
