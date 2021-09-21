@@ -27,28 +27,30 @@ function SongItem(props) {
 
   return (
     <>
-      <div>
-        <h4> {name} </h4>{" "}
-        {artist.name ? <p> {artist.name} </p> : <p> {artistString} </p>}{" "}
-        {typeof artist === "string" && <p> {artist} </p>}{" "}
-      </div>{" "}
-      <div className="buttons">
-        <button
-          onClick={() => {
-            localStorage.setItem("id", videoId);
-            props.giveBackIndex(props.index, duration);
-          }}
-        >
-          {<FontAwesomeIcon icon={faPlay} />}
-        </button>
-        <button
-          onClick={() => {
-            setShowPlaylists(true);
-          }}
-        >
-          {<FontAwesomeIcon icon={faPlus} />}{" "}
-        </button>{" "}
-        <button> {<FontAwesomeIcon icon={faHeart} />}</button>
+      <div className={style.songContainer}>
+        <div>
+          <h4> {name} </h4>
+          {artist.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
+          {typeof artist === "string" && <p> {artist} </p>}
+        </div>
+        <div className={style.buttonContainer}>
+          <button
+            onClick={() => {
+              localStorage.setItem("id", videoId);
+              props.giveBackIndex(props.index, duration);
+            }}
+          >
+            {<FontAwesomeIcon icon={faPlay} />}
+          </button>
+          <button
+            onClick={() => {
+              setShowPlaylists(true);
+            }}
+          >
+            {<FontAwesomeIcon icon={faPlus} />}
+          </button>
+          <button> {<FontAwesomeIcon icon={faHeart} />}</button>
+        </div>
       </div>
       {!added && showPlaylists && (
         <>
