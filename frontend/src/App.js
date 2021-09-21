@@ -9,7 +9,8 @@ import Searchbar from "./components/Searchbar";
 import Navbar from "./components/Navbar";
 import Playlists from "./components/Playlists";
 import UserPlaylist from "./components/UserPlaylist";
-import { isLoggedIn } from "./utilities/isLoggedIn";
+import SideBar from "./components/Sidebar";
+// import { isLoggedIn } from "./utilities/isLoggedIn";
 
 function App() {
   const [activeItem, setActiveItem] = useState("/");
@@ -17,9 +18,9 @@ function App() {
     JSON.parse(localStorage.getItem("user_object"))
   );
 
-  useEffect(() => {
-    isLoggedIn(userObject);
-  }, []);
+  // useEffect(() => {
+  //   isLoggedIn(userObject);
+  // }, []);
 
   useEffect(() => {
     setActiveItem(window.location.pathname);
@@ -57,6 +58,7 @@ function App() {
           </Menu>
         </Segment>
       </header>
+      <SideBar />
       <Router>
         <PrivateRoute path="/" exact component={Searchbar} />
         <Route path="/login" component={Login} />

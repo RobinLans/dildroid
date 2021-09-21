@@ -11,5 +11,8 @@ export async function isLoggedIn(userObject) {
   });
   const data = await response.json();
 
-  console.log(data);
+  console.log("dfff", data);
+
+  if (data.loggedIn) return data.loggedIn;
+  else return false;
 }

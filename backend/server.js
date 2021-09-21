@@ -26,20 +26,26 @@ app.post("/api/login", async (req, res) => {
   const loginCredentials = req.body;
 
   const userInfo = await db.checkIfUserExists(loginCredentials);
+  console.log("cancer", userInfo.length > 0);
 
-  //Only need to check user[0] due to unique constraint on email.
-  const checkCredentials = await comparePasswordToHash(
-    loginCredentials.password,
-    userInfo[0].password
-  );
+  let checkCredentials;
+  if (userInfo.length > 0) {
+    //Only need to check user[0] due to unique constraint on email.
+    checkCredentials = await comparePasswordToHash(
+      loginCredentials.password,
+      userInfo[0].password
+    );
+  }
 
   let result = { success: false };
+
   if (checkCredentials) {
     const userId = userInfo[0].id;
     const token = jwt.sign({ id: userId }, "a1b1c1", { expiresIn: "7 days" });
 
     result.success = true;
     result.token = token;
+    result.userId = userId;
   }
 
   res.json(result);

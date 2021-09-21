@@ -28,13 +28,13 @@ function Login() {
     e.preventDefault();
 
     const acceptedLogin = await checkIfUserExists(email, password);
-    console.log(acceptedLogin);
+    console.log("Hallo", acceptedLogin);
 
     if (acceptedLogin.success) {
       await saveToken(acceptedLogin.token);
       localStorage.setItem("UserId", acceptedLogin.userId);
       localStorage.setItem("user_object", JSON.stringify(acceptedLogin));
-      setLogin(true);
+      // setLogin(true);
       setTimeout(() => {
         history.push("/");
       }, 1000);
