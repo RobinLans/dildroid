@@ -5,7 +5,7 @@ import SongItem from "./SongItem";
 import YouTubePlayer from "./YouTubePlayer";
 import PlayerControls from "./PlayerControls";
 
-import style from "../styles/SearchResults.module.css";
+import style from "../styles/Getsongs.module.css";
 
 function GetSongs({ searchType, playlistId, inputValue, searched }) {
   const [musicList, setMusicList] = useState([]);
@@ -116,11 +116,10 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
   }
 
   return (
-    <div>
-      <div className={style.videowrapper}>
-        <div className={style.videotextlist}> </div>{" "}
-        <div className="searchResult"> {musicList && listSongs()} </div>{" "}
-        <YouTubePlayer sendPlayerBack={sendPlayerBack} />{" "}
+    <div className={style.container}>
+      <div className={style.searchResult}>{musicList && listSongs()}</div>
+      <YouTubePlayer sendPlayerBack={sendPlayerBack} />{" "}
+      <div className={style.playerContainer}>
         {showControls && (
           <PlayerControls
             pauseVideo={pausePlayer}
@@ -134,8 +133,8 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
             animation={animation}
             player={player}
           />
-        )}{" "}
-      </div>{" "}
+        )}
+      </div>
     </div>
   );
 }

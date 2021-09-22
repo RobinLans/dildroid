@@ -1,16 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import style from "../styles/Navbar.module.css";
 
 function Navbar() {
   return (
-    <div>
-      <Link to="/">Search</Link>
+    <div className={style.container}>
+      <Link to="/" className={style.link}>
+        Search
+      </Link>
       <br />
-      <Link to="/playlists">Playlists</Link>
+      <Link to="/playlists" className={style.link}>
+        Playlists
+      </Link>
       <br />
-      <Link to="/favorites">Favorites</Link>
+      <Link to="/favorites" className={style.link}>
+        Favorites
+      </Link>
       <br />
-      <Link to="/login">Login</Link>
+      <Link to="/login" className={style.link}>
+        Login
+      </Link>
     </div>
   );
 }
