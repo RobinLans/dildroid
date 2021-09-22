@@ -51,29 +51,34 @@ function Login() {
     <>
       <div className={style.loginModal}>
         {!login && (
-          <form onSubmit={submitForm}>
-            <label htmlFor="email"> E - Mail </label>
-            <input
-              type="text"
-              placeholder="E-Mail"
-              id="email"
-              name="email"
-              onChange={handleEmailChange}
-              value={email}
-            />{" "}
-            <label htmlFor="pw"> Password </label>
-            <input
-              type="password"
-              placeholder="Password"
-              id={style.pw}
-              name="pw"
-              onChange={handlePwChange}
-              value={password}
-            />
-            <input className={style.loginBtn} type="submit" value="Login" />
-          </form>
+          <>
+            <form onSubmit={submitForm}>
+              <label htmlFor="email"> E - Mail </label>
+              <input
+                type="text"
+                placeholder="E-Mail"
+                id="email"
+                name="email"
+                onChange={handleEmailChange}
+                value={email}
+              />{" "}
+              <label htmlFor="pw"> Password </label>
+              <input
+                type="password"
+                placeholder="Password"
+                id={style.pw}
+                name="pw"
+                onChange={handlePwChange}
+                value={password}
+              />
+              <input className={style.loginBtn} type="submit" value="Login" />
+              <button className={style.registerBtn}>
+                <p>Register</p>
+              </button>
+            </form>
+          </>
         )}
-        {login && <h1> Inloggad </h1>}
+        {login && <h1> Inloggad </h1>}{" "}
       </div>
     </>
   );
