@@ -11,3 +11,10 @@ main {
   display: flex;
   justify-content: center;
 }
+
+.navbar {
+  color: aqua;
+}
+
+@media screen and (max-width: 768px) {
+}

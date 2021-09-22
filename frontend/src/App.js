@@ -8,25 +8,38 @@ import Searchbar from "./components/Searchbar";
 import Navbar from "./components/Navbar";
 import Playlists from "./components/Playlists";
 import UserPlaylist from "./components/UserPlaylist";
-import NewNavbar from "./components/NewNavbar";
+// import NewNavbar from "./components/NewNavbar";
+import style from "./styles/App.module.css";
 
 function App() {
-	const [userObject, setUserObject] = useState(JSON.parse(localStorage.getItem('user_object')));
+  const [userObject, setUserObject] = useState(
+    JSON.parse(localStorage.getItem("user_object"))
+  );
+  // const [windowWidth, setWindowWidth] = useState(0);
 
-	return (
-		<div className="App">
-			<Router>
-				<header>
-					<NewNavbar />
-				</header>
+  // setWindowWidth(window.innerWidth);
 
-				<PrivateRoute path="/" exact component={Searchbar} />
-				<Route path="/login" component={Login} />
-				<PrivateRoute path="/playlists" component={Playlists} />
-				<PrivateRoute path="/user-playlist/:id" component={UserPlaylist} />
-			</Router>
-		</div>
-	);
+  // useEffect(() => {
+  //   console.log(windowWidth);
+  // }, []);
+
+  return (
+    <div className="App">
+      <body>
+        <Router>
+          <header>
+            <Navbar />
+          </header>
+          <main>
+            <PrivateRoute path="/" exact component={Searchbar} />
+            <Route path="/login" component={Login} />
+            <PrivateRoute path="/playlists" component={Playlists} />
+            <PrivateRoute path="/user-playlist/:id" component={UserPlaylist} />
+          </main>
+        </Router>
+      </body>
+    </div>
+  );
 }
 
 export default App;

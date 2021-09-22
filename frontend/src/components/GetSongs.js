@@ -118,7 +118,6 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
   return (
     <div className={style.container}>
       <div className={style.searchResult}>{musicList && listSongs()}</div>
-      <YouTubePlayer sendPlayerBack={sendPlayerBack} />{" "}
       <div className={style.playerContainer}>
         {showControls && (
           <PlayerControls
@@ -134,6 +133,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
             player={player}
           />
         )}
+        <YouTubePlayer sendPlayerBack={sendPlayerBack} />{" "}
       </div>
     </div>
   );

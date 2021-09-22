@@ -27,7 +27,13 @@ function SongItem(props) {
 
   return (
     <>
-      <div className={style.songContainer}>
+      <div
+        className={style.songContainer}
+        onClick={() => {
+          localStorage.setItem("id", videoId);
+          props.giveBackIndex(props.index, duration);
+        }}
+      >
         <div>
           <h4> {name} </h4>
           {artist.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
@@ -35,6 +41,7 @@ function SongItem(props) {
         </div>
         <div className={style.buttonContainer}>
           <button
+            className={style.playBtn}
             onClick={() => {
               localStorage.setItem("id", videoId);
               props.giveBackIndex(props.index, duration);

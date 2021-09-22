@@ -1,5 +1,6 @@
 .container {
   background-color: #184e77;
+  height: 100%;
   width: 20rem;
   display: flex;
   flex-direction: column;
@@ -16,4 +17,10 @@
 
 .link:hover {
   color: #99d98c;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    display: none;
+  }
 }

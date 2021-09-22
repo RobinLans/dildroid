@@ -1,4 +1,5 @@
 .container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,4 +44,26 @@ select {
 .searchBtn:hover {
   background-color: #99d98c;
   color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  select {
+    margin-left: 1rem;
+  }
+
+  .searchBar {
+    max-width: 90%;
+    margin: auto;
+  }
+
+  .searchBtn {
+    margin: auto 1rem auto 1rem;
+  }
+  .searchContainer {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 }

@@ -28,7 +28,7 @@
 .container {
   display: flex;
   height: 85%;
-  width: 670px;
+  width: 100%;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;

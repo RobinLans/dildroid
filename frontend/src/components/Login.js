@@ -50,10 +50,9 @@ function Login() {
   return (
     <>
       <div className={style.loginModal}>
-        {" "}
         {!login && (
           <form onSubmit={submitForm}>
-            <label htmlFor="email"> E - Mail </label>{" "}
+            <label htmlFor="email"> E - Mail </label>
             <input
               type="text"
               placeholder="E-Mail"
@@ -62,7 +61,7 @@ function Login() {
               onChange={handleEmailChange}
               value={email}
             />{" "}
-            <label htmlFor="pw"> Password </label>{" "}
+            <label htmlFor="pw"> Password </label>
             <input
               type="password"
               placeholder="Password"
@@ -70,12 +69,12 @@ function Login() {
               name="pw"
               onChange={handlePwChange}
               value={password}
-            />{" "}
+            />
             <input className={style.loginBtn} type="submit" value="Login" />
           </form>
-        )}{" "}
-        {login && <h1> Inloggad </h1>}{" "}
-      </div>{" "}
+        )}
+        {login && <h1> Inloggad </h1>}
+      </div>
     </>
   );
 }
