@@ -4,9 +4,17 @@
   flex-direction: column;
   align-items: center;
 }
+.searchContainer {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 3rem;
+}
 
 select {
-  margin-right: 1rem;
+  margin-right: 0;
   height: 3rem;
   background-color: #99d98c;
   border: none;
@@ -16,11 +24,11 @@ select {
 }
 
 .searchBar {
-  width: 30rem;
+  margin: auto 1rem auto 1rem;
+  width: 30rem !important;
   height: 3rem;
   border-radius: 50px;
   border: 2px solid #99d98c;
-  margin-top: 2rem;
   color: #1e6091;
   font-weight: bold;
   padding-left: 1rem;
@@ -31,8 +39,7 @@ select {
 }
 
 .searchBtn {
-  margin-left: 1rem;
-  margin-bottom: 1rem;
+  margin-left: 0;
   height: 3rem;
   width: 3rem;
   border-radius: 50%;

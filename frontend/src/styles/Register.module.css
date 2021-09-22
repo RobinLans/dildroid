@@ -52,9 +52,9 @@
   background-color: #7d9e77;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"] {
+.text,
+.password,
+.email {
   margin-top: 19px;
   font-family: "Ubuntu", sans-serif;
   width: 100%;

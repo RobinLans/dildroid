@@ -46,6 +46,7 @@ function Register() {
           <label htmlFor="name"></label>
           <input
             type="text"
+            className={style.text}
             placeholder="Name"
             id="name"
             name="name"
@@ -56,6 +57,7 @@ function Register() {
           <label htmlFor="email"></label>
           <input
             type="email"
+            className={style.email}
             placeholder="Email"
             id="registeremail"
             name="email"
@@ -65,6 +67,7 @@ function Register() {
           <label htmlFor="password"></label>
           <input
             type="password"
+            className={style.password}
             placeholder="Password"
             id="password"
             name="password"
