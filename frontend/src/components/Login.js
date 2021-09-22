@@ -50,8 +50,7 @@ function Login() {
   return (
     <>
       <div className={style.loginModal}>
-        {" "}
-        {!login && (
+        {!login && (<>
           <form onSubmit={submitForm}>
             <label htmlFor="email"> E - Mail </label>{" "}
             <input
@@ -72,10 +71,15 @@ function Login() {
               value={password}
             />{" "}
             <input className={style.loginBtn} type="submit" value="Login" />
+            
+            
+          <button className={style.registerBtn}>
+            <p>Register</p>
+            </button>
           </form>
-        )}{" "}
+        </>)}
         {login && <h1> Inloggad </h1>}{" "}
-      </div>{" "}
+      </div>
     </>
   );
 }
