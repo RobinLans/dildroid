@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 //Components
-import SongItem from "./SongItem";
-import YouTubePlayer from "./YouTubePlayer";
-import PlayerControls from "./PlayerControls";
+import SongItem from "../SongItem";
+import YouTubePlayer from "../Player/YouTubePlayer";
+import PlayerControls from "../Player/PlayerControls";
 
-import style from "../styles/Getsongs.module.css";
+import style from "../../styles/SearchResults.module.css";
 
 function GetSongs({ searchType, playlistId, inputValue, searched }) {
   const [musicList, setMusicList] = useState([]);
@@ -116,9 +116,11 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
   }
 
   return (
-    <div className={style.container}>
-      <div className={style.searchResult}>{musicList && listSongs()}</div>
-      <div className={style.playerContainer}>
+    <div>
+      <div className={style.videowrapper}>
+        <div className={style.videotextlist}> </div>{" "}
+        <div className="searchResult"> {musicList && listSongs()} </div>{" "}
+        <YouTubePlayer sendPlayerBack={sendPlayerBack} />{" "}
         {showControls && (
           <PlayerControls
             pauseVideo={pausePlayer}
@@ -132,9 +134,8 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
             animation={animation}
             player={player}
           />
-        )}
-        <YouTubePlayer sendPlayerBack={sendPlayerBack} />{" "}
-      </div>
+        )}{" "}
+      </div>{" "}
     </div>
   );
 }

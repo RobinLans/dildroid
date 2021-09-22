@@ -6,7 +6,7 @@ function Playlists() {
   const [userPlaylists, setUserPlaylists] = useState([]);
 
   async function fetchUsersPlaylists() {
-    let userId = 9;
+    let userId = localStorage.getItem("UserId");
     let result = await fetch(`/users-playlist/${userId}`);
     let data = await result.json();
     console.log(data.playlists);
@@ -23,6 +23,7 @@ function Playlists() {
 
   return (
     <>
+      {" "}
       {userPlaylists &&
         userPlaylists.map((playlist) => (
           <div
@@ -32,9 +33,9 @@ function Playlists() {
               goToPlaylist(playlist.id);
             }}
           >
-            <h3>{playlist.name}</h3>
+            <h3> {playlist.name} </h3>{" "}
           </div>
-        ))}
+        ))}{" "}
     </>
   );
 }

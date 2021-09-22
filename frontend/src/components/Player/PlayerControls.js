@@ -9,13 +9,13 @@ import {
   faFastForward,
   faShare,
 } from "@fortawesome/free-solid-svg-icons";
-import style from "../styles/PlayerControls.module.css";
+import style from "../../styles/PlayerControls.module.css";
 
 //Utils functions
 import {
   secondsToMinutesAndSeconds,
   millisToMinutesAndSeconds,
-} from "../utilities/utils";
+} from "../../utilities/utils";
 
 function PlayerControls({
   pauseVideo,
@@ -61,60 +61,62 @@ function PlayerControls({
   }
 
   function whilePlaying() {
-    // if (progressBar.current.value == NaN) return;
-    try {
-      progressBar.current.value = currentTime;
-    } catch (error) {}
+    if (isNaN(progressBar.current.value)) return;
+    progressBar.current.value = currentTime;
   }
-
+  console.log(player);
   //Here we update the current time every second
   setInterval(async () => {
     setCurrentTime(await player.internalPlayer.getCurrentTime());
   }, 1000);
 
   return (
-    <main>
-      <div className={style.controlContainer}>
-        <div className={style.progress}>
-          <div className={style.currentTime}>
-            {secondsToMinutesAndSeconds(currentTime)}
-          </div>
-          <div>
-            <input
-              type="range"
-              defaultValue="0"
-              onChange={getValue}
-              className={style.progressBar}
-              ref={progressBar}
-              max={100}
-            />
-          </div>
-          <div className={style.currentTime}>
-            {millisToMinutesAndSeconds(duration)}
-          </div>
-        </div>
-        <div className={style.buttons}>
-          <button onClick={previousVideo}>
-            <FontAwesomeIcon icon={faFastBackward} />
+    <div className={style.controlContainer}>
+      <div className={style.artist}>
+        <h2> {localStorage.getItem("artist")} - </h2>{" "}
+        <h2> {localStorage.getItem("name")} </h2>{" "}
+      </div>{" "}
+      <div className={style.progress}>
+        <div className={style.currentTime}>
+          {" "}
+          {secondsToMinutesAndSeconds(currentTime)}{" "}
+        </div>{" "}
+        <div>
+          <input
+            type="range"
+            defaultValue="0"
+            onChange={getValue}
+            className={style.progressBar}
+            ref={progressBar}
+            max={100}
+          />{" "}
+        </div>{" "}
+        <div className={style.currentTime}>
+          {" "}
+          {millisToMinutesAndSeconds(duration)}{" "}
+        </div>{" "}
+      </div>{" "}
+      <div className={style.buttons}>
+        <button onClick={previousVideo}>
+          <FontAwesomeIcon icon={faFastBackward} />{" "}
+        </button>{" "}
+        {paused ? (
+          <button className={style.play} onClick={playVideo}>
+            <FontAwesomeIcon icon={faPlay} />{" "}
           </button>
-          {paused ? (
-            <button className={style.play} onClick={playVideo}>
-              <FontAwesomeIcon icon={faPlay} />
-            </button>
-          ) : (
-            <button className={style.pause} onClick={pauseVideo}>
-              <FontAwesomeIcon icon={faPause} />
-            </button>
-          )}
-          <button onClick={nextVideo}>
-            <FontAwesomeIcon icon={faFastForward} />
+        ) : (
+          <button className={style.pause} onClick={pauseVideo}>
+            <FontAwesomeIcon icon={faPause} />{" "}
           </button>
-          <button className={style.share} onClick={shareUrl}>
-            <FontAwesomeIcon icon={faShare} />
-          </button>
-        </div>
-      </div>
-    </main>
+        )}{" "}
+        <button onClick={nextVideo}>
+          <FontAwesomeIcon icon={faFastForward} />{" "}
+        </button>{" "}
+        <button className={style.share} onClick={shareUrl}>
+          <FontAwesomeIcon icon={faShare} />{" "}
+        </button>{" "}
+      </div>{" "}
+    </div>
   );
 }
 
