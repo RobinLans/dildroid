@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import GetSongs from "./GetSongs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
 import style from "../styles/Searchbar.module.css";
 
 function Searchbar() {
@@ -39,19 +39,25 @@ function Searchbar() {
     }, 500);
   }
 
+  function showSidebar() {
+    console.log("Show menu");
+    localStorage.setItem("ShowSidebar", true);
+  }
+
   return (
     <div className={style.container}>
       <div className={style.searchContainer}>
-        <select value={searchType} onChange={setType}>
-          <option value="songs"> Songs </option>{" "}
-          <option value="artists"> Artists </option>{" "}
-        </select>{" "}
         <input
           className={style.searchBar}
           type="text"
           ref={textInput}
           onKeyPress={handleKeypress}
+          placeholder="Search for something"
         />{" "}
+        <select value={searchType} onChange={setType}>
+          <option value="songs"> Songs </option>{" "}
+          <option value="artists"> Artists </option>{" "}
+        </select>{" "}
         <button
           className={style.searchBtn}
           onClick={() => {

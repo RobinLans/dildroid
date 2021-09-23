@@ -9,36 +9,74 @@ import Navbar from "./components/Navbar";
 import Playlists from "./components/Playlists";
 import UserPlaylist from "./components/UserPlaylist";
 // import NewNavbar from "./components/NewNavbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import style from "./styles/App.module.css";
-import Register from "./components/Register"
+import Register from "./components/Register";
 
 function App() {
   const [userObject, setUserObject] = useState(
     JSON.parse(localStorage.getItem("user_object"))
   );
-  // const [windowWidth, setWindowWidth] = useState(0);
+  const [mobileView, setMobileView] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [showSideBar, setShowSidebar] = useState(false);
 
-  // setWindowWidth(window.innerWidth);
+  window.addEventListener("resize", () => {
+    setWindowWidth(window.innerWidth);
+  });
 
-  // useEffect(() => {
-  //   console.log(windowWidth);
-  // }, []);
+  useEffect(() => {
+    if (windowWidth <= 768) setMobileView(true);
+    if (windowWidth > 768) {
+      setMobileView(false);
+      setShowSidebar(false);
+    }
+  }, [windowWidth]);
+
+  function clickingOnBurger() {
+    setShowSidebar(true);
+  }
+
+  function closingSidebar() {
+    setShowSidebar(false);
+  }
 
   return (
     <div className="App">
       <body>
         <Router>
           <header>
-            <Navbar />
+            {(!mobileView || showSideBar) && (
+              <Navbar clickedLink={closingSidebar} />
+            )}
+            {mobileView && !showSideBar && (
+              <button className={style.burger} onClick={clickingOnBurger}>
+                <FontAwesomeIcon icon={faBars} />
+              </button>
+            )}
+            {showSideBar && mobileView && (
+              <button className={style.closeSidebar} onClick={closingSidebar}>
+                X
+              </button>
+            )}
           </header>
           <main>
             <PrivateRoute path="/" exact component={Searchbar} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/playlists" component={Playlists} />
             <PrivateRoute path="/user-playlist/:id" component={UserPlaylist} />
-			<Route path="/register-user" component={Register}></Route>
+            <Route path="/register-user" component={Register}></Route>
           </main>
         </Router>
+        <div
+          className={
+            showSideBar && mobileView ? `${style.overlay}` : `${style.hidden}`
+          }
+          onClick={() => {
+            setShowSidebar(false);
+          }}
+        ></div>
       </body>
     </div>
   );
