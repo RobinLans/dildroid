@@ -87,3 +87,30 @@
     width: 80%;
   }
 }
+
+@media screen and (max-width: 440px) {
+  .songContainer h4 {
+    /* max-width: 9rem; */
+    max-width: 90%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .textContainer {
+    max-width: 60%;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    margin-right: 5px;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  .buttonContainer button {
+    margin-left: 10px;
+  }
+}

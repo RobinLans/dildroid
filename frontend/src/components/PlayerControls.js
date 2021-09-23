@@ -79,7 +79,7 @@ function PlayerControls({
           <div className={style.currentTime}>
             {secondsToMinutesAndSeconds(currentTime)}
           </div>
-          <div>
+          <div className={style.bar}>
             <input
               type="range"
               defaultValue="0"

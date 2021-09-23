@@ -34,7 +34,7 @@ function SongItem(props) {
           props.giveBackIndex(props.index, duration);
         }}
       >
-        <div>
+        <div className={style.textContainer}>
           <h4> {name} </h4>
           {artist.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
           {typeof artist === "string" && <p> {artist} </p>}

@@ -55,16 +55,18 @@ select {
 
 @media screen and (max-width: 768px) {
   select {
-    margin-left: 1rem;
+    margin-left: 5px;
   }
 
   .searchBar {
     max-width: 90%;
-    margin: auto;
+    margin: auto 10px auto 10px;
   }
 
   .searchBtn {
-    margin: auto 1rem auto 1rem;
+    margin: auto 5px auto 0;
+    height: 3rem;
+    min-width: 3rem;
   }
   .searchContainer {
     margin-top: 0.5rem;
