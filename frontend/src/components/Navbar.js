@@ -17,9 +17,10 @@ function Navbar() {
         Favorites
       </Link>
       <br />
-      <Link to="/login" className={style.link}>
-        Login
-      </Link>
+      <Link to="/login" className={style.link}>Login</Link>
+      <br />
+      <Link to="/register-user">Register</Link>
+      
     </div>
   );
 }

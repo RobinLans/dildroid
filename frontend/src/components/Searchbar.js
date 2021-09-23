@@ -41,7 +41,7 @@ function Searchbar() {
 
   return (
     <div className={style.container}>
-      <div>
+      <div className={style.searchContainer}>
         <select value={searchType} onChange={setType}>
           <option value="songs"> Songs </option>{" "}
           <option value="artists"> Artists </option>{" "}

@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.registercontainer {
+  background-color: #1e6091;
+  justify-content: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.title {
+  text-align: center;
+  margin-top: -6em;
+  color: #99d98c;
+  font-size: 3.5em;
+  font-weight: 1000;
+}
+
+.regform {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5em;
+  color: white;
+  font-size: 20px;
+}
+
+.registerBtn {
+  margin-top: 1.5em;
+  color: white;
+  width: 100%;
+  font-size: 17px;
+  padding: 8px;
+  background-color: #99d98c;
+  border: none;
+  border-radius: 20px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+}
+
+.registerBtn:hover {
+  background-color: #7d9e77;
+}
+
+.text,
+.password,
+.email {
+  margin-top: 19px;
+  font-family: "Ubuntu", sans-serif;
+  width: 100%;
+  padding: 8.5px 18px;
+  display: inline-block;
+  border: 2px solid #99d98c;
+  box-sizing: border-box;
+  border-radius: 20px;
+  font-size: 16px;
+  outline: none;
+  font-weight: 600;
+}
+
+.loginBtn {
+  margin-top: 0.5em;
+  color: white;
+  width: 251.2px;
+  font-size: 17px;
+  padding: 8px;
+  background-color: #99d98c;
+  border: none;
+  border-radius: 20px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+}

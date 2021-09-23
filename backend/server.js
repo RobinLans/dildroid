@@ -9,6 +9,7 @@ app.post("/api/register-user/", async(req, res) => {
     let user = req.body;
     let result = { success: false }
     let insert = await db.registerUser(user);
+    
     user.id = insert.lastInsertRowid;
     if (insert) {
         result.success = true
