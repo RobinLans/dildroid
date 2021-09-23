@@ -47,7 +47,8 @@ module.exports = {
         return run(query, user);
     },
     getPlaylists(userId) {
-        return all(`SELECT * FROM Playlist WHERE user_id = ${userId}`);
+		return all(`SELECT * FROM Playlist LEFT JOIN Followed ON Playlist.id = Followed.playlistId WHERE Playlist.user_id = ${userId} OR Followed.userId = ${userId}`);
+
     },
     getPlaylistSongs(id) {
         return all(`SELECT * FROM Playlist_songs WHERE playlist_id = ${id}`);
@@ -56,6 +57,13 @@ module.exports = {
     addPlaylist(playlist) {
         const query = `INSERT INTO Playlist(name, user_id)
     VALUES(:name, :userId)`;
+
+        return run(query, playlist);
+    },
+
+	addFollowed(playlist) {
+        const query = `INSERT INTO Followed(userId, playlistId)
+    VALUES(:userId, :playlistId)`;
 
         return run(query, playlist);
     },
