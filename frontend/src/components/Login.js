@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import style from "../styles/Login.module.css";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -50,10 +51,11 @@ function Login() {
   return (
     <>
       <div className={style.loginModal}>
+        <h1>Spottafy</h1>
         {!login && (
           <>
             <form onSubmit={submitForm}>
-              <label htmlFor="email"> E - Mail </label>
+              <label htmlFor="email"></label>
               <input
                 type="text"
                 placeholder="E-Mail"
@@ -62,7 +64,7 @@ function Login() {
                 onChange={handleEmailChange}
                 value={email}
               />{" "}
-              <label htmlFor="pw"> Password </label>
+              <label htmlFor="pw"></label>
               <input
                 type="password"
                 placeholder="Password"
@@ -72,9 +74,11 @@ function Login() {
                 value={password}
               />
               <input className={style.loginBtn} type="submit" value="Login" />
+              <Link to="/register-user">
               <button className={style.registerBtn}>
                 <p>Register</p>
               </button>
+              </Link>
             </form>
           </>
         )}

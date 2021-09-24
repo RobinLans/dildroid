@@ -4,12 +4,20 @@
 
 .loginModal {
     height: 100vh;
-    width: 100vw;
-    background-color: #184e77;
+    width: 100%;
+    flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.title {
+    text-align: center;
+    
+    color: #99d98c;
+    font-size: 3.5em;
+    font-weight: 1000;
+  }
 
 .exitBtn {
     position: absolute;
@@ -30,17 +38,7 @@
     justify-content: center;
 }
 
-.loginModal form input {
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-    height: 2rem;
-    border-radius: 10px;
-    border: none;
-    border: 2px solid transparent;
-    color: #184e77;
-    font-size: 1rem;
-    font-weight: 600;
-}
+
 
 .loginModal form input:focus {
     border: 2px solid #99d98c;
@@ -49,7 +47,6 @@
 
 .loginModal form label {
     text-align: center;
-    margin-top: 0.5rem;
     color: #fff;
     font-size: 1.5rem;
     font-weight: 800;
@@ -60,11 +57,17 @@
 }
 
 .loginBtn {
-    width: 8rem;
-    margin: 1rem auto auto auto;
-    margin-bottom: 1rem;
-    background-color: hsl(110, 50%, 70%);
-    color: #fff;
+    margin-top: 0.5em;
+  color: white;
+  width: 251.2px;
+  font-size: 17px;
+  padding: 8px;
+  background-color: #99d98c;
+  border: none;
+  border-radius: 20px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+  height:40px;
 }
 
 .loginBtn:hover {
@@ -73,23 +76,43 @@
 }
 
 .loginModal h1 {
-    color: #fff;
     text-align: center;
-    margin-top: 6rem;
+    margin-top: -6em;
+    color: #99d98c;
+    font-size: 3.5em;
+    font-weight: 1000;
 }
 
 .registerBtn {
-    height: 2rem;
-    width: 5rem;
+    margin-top: 0.7em;
+    color: white;
+    width: 251.2px;
+    font-size: 17px;
+    padding: 8px;
+    background-color: #99d98c;
     border: none;
-    border-radius: 10px;
-    margin: auto;
-    background-color: hsl(110, 50%, 70%);
-    color: #184e77;
+    border-radius: 20px;
+    font-family: "Ubuntu", sans-serif;
     font-weight: 600;
 }
 
 .registerBtn:hover {
     cursor: pointer;
     background-color: hsl(110, 50%, 50%);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  margin-top: 19px;
+  font-family: "Ubuntu", sans-serif;
+  width: 100%;
+  padding: 8.5px 18px;
+  display: inline-block;
+  border: 2px solid #99d98c;
+  box-sizing: border-box;
+  border-radius: 20px;
+  font-size: 16px;
+  outline: none;
+  font-weight: 600;
 }

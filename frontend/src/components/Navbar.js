@@ -57,9 +57,6 @@ function Navbar(props) {
           Login
         </Link>
         <br />
-        <Link to="/register-user" onClick={props.clickedLink}>
-          Register
-        </Link>
       </div>
     </>
   );
