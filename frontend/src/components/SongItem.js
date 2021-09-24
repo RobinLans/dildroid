@@ -8,8 +8,7 @@ function SongItem(props) {
   let { name, artist, videoId, type, duration, title, isCurrent } = props;
   const [showPlaylists, setShowPlaylists] = useState(false);
   const [added, setAdded] = useState(false);
-
-  console.log(isCurrent, name);
+  const [playing, setPlaying] = useState(false);
 
   let multipleArtist = [];
   let artistString = "";
@@ -34,10 +33,13 @@ function SongItem(props) {
         onClick={() => {
           localStorage.setItem("id", videoId);
           props.giveBackIndex(props.index, duration);
+          setPlaying(true);
         }}
       >
         <div className={style.textContainer}>
-          <h4>{name}</h4>
+          <h4 className={isCurrent && playing ? `${style.playing}` : ""}>
+            {name}
+          </h4>
           {artist.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
           {typeof artist === "string" && <p> {artist} </p>}
         </div>

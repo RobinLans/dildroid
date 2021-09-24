@@ -79,6 +79,10 @@
   background-color: hsl(206, 66%, 20%);
 }
 
+.playing {
+  color: #99d98c !important;
+}
+
 @media screen and (max-width: 768px) {
   .playBtn {
     display: none;
