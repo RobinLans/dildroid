@@ -48,6 +48,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
         index={index}
         giveBackIndex={giveBackIndexAndStartPlaylist}
         handleArtistClick={handleArtistClick}
+        isCurrent={currentIndex === index}
       />
     ));
   }

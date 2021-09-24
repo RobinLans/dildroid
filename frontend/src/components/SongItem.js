@@ -5,9 +5,11 @@ import AddToPlaylist from "./AddToPlaylist";
 import style from "../styles/SongItem.module.css";
 
 function SongItem(props) {
-  let { name, artist, videoId, type, duration, title } = props;
+  let { name, artist, videoId, type, duration, title, isCurrent } = props;
   const [showPlaylists, setShowPlaylists] = useState(false);
   const [added, setAdded] = useState(false);
+
+  console.log(isCurrent, name);
 
   let multipleArtist = [];
   let artistString = "";
@@ -35,7 +37,7 @@ function SongItem(props) {
         }}
       >
         <div className={style.textContainer}>
-          <h4> {name} </h4>
+          <h4>{name}</h4>
           {artist.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
           {typeof artist === "string" && <p> {artist} </p>}
         </div>

@@ -5,7 +5,9 @@ import style from "../styles/Navbar.module.css";
 function Navbar(props) {
   const [showNavbar, setShowNavbar] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [hamburgerClicked, setHamburgerClicked] = useState(false);
+  const [hamburgerClicked, setHamburgerClicked] = useState(
+    localStorage.getItem("showSidebar")
+  );
 
   window.addEventListener("resize", () => {
     setWindowWidth(window.innerWidth);
@@ -18,7 +20,6 @@ function Navbar(props) {
   useEffect(() => {
     if (windowWidth <= 768) {
       setShowNavbar(false);
-      setHamburgerClicked(localStorage.getItem("ShowSidebar"));
     }
     if (windowWidth > 768) setShowNavbar(true);
   }, [windowWidth]);

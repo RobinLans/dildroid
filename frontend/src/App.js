@@ -36,10 +36,12 @@ function App() {
 
   function clickingOnBurger() {
     setShowSidebar(true);
+    localStorage.setItem("showSidebar", showSideBar);
   }
 
   function closingSidebar() {
     setShowSidebar(false);
+    localStorage.setItem("showSidebar", showSideBar);
   }
 
   return (
