@@ -53,6 +53,7 @@ function Register() {
             onChange={nameInput}
             value={name}
             minLength={3}
+            className={style.text}
           />
           <label htmlFor="email"></label>
           <input
@@ -63,6 +64,7 @@ function Register() {
             name="email"
             onChange={emailInput}
             value={email}
+            className={style.email}
           />
           <label htmlFor="password"></label>
           <input
@@ -74,6 +76,7 @@ function Register() {
             onChange={passwordInput}
             value={password}
             minLength={5}
+            className={style.password}
           />
 
           <input className={style.registerBtn} type="submit" value="Register" />

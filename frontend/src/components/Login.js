@@ -63,6 +63,7 @@ function Login() {
                 name="email"
                 onChange={handleEmailChange}
                 value={email}
+                className={style.email}
               />{" "}
               <label htmlFor="pw"></label>
               <input
@@ -72,12 +73,13 @@ function Login() {
                 name="pw"
                 onChange={handlePwChange}
                 value={password}
+                className={style.password}
               />
               <input className={style.loginBtn} type="submit" value="Login" />
               <Link to="/register-user">
-              <button className={style.registerBtn}>
-                <p>Register</p>
-              </button>
+                <button className={style.registerBtn}>
+                  <p>Register</p>
+                </button>
               </Link>
             </form>
           </>
