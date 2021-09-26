@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
+
+//Components
 import AddToPlaylist from "./AddToPlaylist";
 import style from "../styles/SongItem.module.css";
+
 
 function SongItem(props) {
   let { name, artist, videoId, type, duration, title, isCurrent } = props;
