@@ -7,6 +7,7 @@ function YouTubePlayer(props) {
   //Here we send the player element back to SearchResult so that we can use there
   props.sendPlayerBack(videoPlayer.current);
 
+  //Hide the youtube player so that we can use our own custom player controls
   const opts = {
     height: "0",
     width: "0",

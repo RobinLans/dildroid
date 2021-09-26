@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import SongItem from "../SongItem";
 import YouTubePlayer from "../Player/YouTubePlayer";
 import PlayerControls from "../Player/PlayerControls";
-
 import style from "../../styles/SearchResults.module.css";
 
 function GetSongs({ searchType, playlistId, inputValue, searched }) {

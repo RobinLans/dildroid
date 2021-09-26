@@ -44,15 +44,17 @@ function PlayerControls({
     setCurrentTime(sliderValue);
     handleInputChange(sliderValue);
   }
-
+// This checks if there is a song currently onabort, if there is then update the progress animation
   if (progressBar.current) {
     if (animation) {
       animationRef.current = requestAnimationFrame(whilePlaying);
+    // Otherwise if there is no animation ongoing (no song playing) then cancel the progressbar
     } else if (!animation) {
       cancelAnimationFrame(animationRef.current);
     }
   }
 
+// Function for copying the url of the song to the clipboard
   function shareUrl() {
     let url = navigator.clipboard.writeText(
       `https://www.youtube.com/watch?v=${localStorage.getItem("id")}`
@@ -65,6 +67,7 @@ function PlayerControls({
     progressBar.current.value = currentTime;
   }
   console.log(player);
+
   //Here we update the current time every second
   setInterval(async () => {
     setCurrentTime(await player.internalPlayer.getCurrentTime());
@@ -73,14 +76,14 @@ function PlayerControls({
   return (
     <div className={style.controlContainer}>
       <div className={style.artist}>
-        <h2> {localStorage.getItem("artist")} - </h2>{" "}
-        <h2> {localStorage.getItem("name")} </h2>{" "}
-      </div>{" "}
+        <h2> {localStorage.getItem("artist")} - </h2>
+        <h2> {localStorage.getItem("name")} </h2>
+      </div>
       <div className={style.progress}>
         <div className={style.currentTime}>
-          {" "}
-          {secondsToMinutesAndSeconds(currentTime)}{" "}
-        </div>{" "}
+          
+          {secondsToMinutesAndSeconds(currentTime)}
+        </div>
         <div>
           <input
             type="range"
@@ -89,33 +92,33 @@ function PlayerControls({
             className={style.progressBar}
             ref={progressBar}
             max={100}
-          />{" "}
-        </div>{" "}
+          />
+        </div>
         <div className={style.currentTime}>
-          {" "}
-          {millisToMinutesAndSeconds(duration)}{" "}
-        </div>{" "}
-      </div>{" "}
+          
+          {millisToMinutesAndSeconds(duration)}
+        </div>
+      </div>
       <div className={style.buttons}>
         <button onClick={previousVideo}>
-          <FontAwesomeIcon icon={faFastBackward} />{" "}
-        </button>{" "}
+          <FontAwesomeIcon icon={faFastBackward} />
+        </button>
         {paused ? (
           <button className={style.play} onClick={playVideo}>
-            <FontAwesomeIcon icon={faPlay} />{" "}
+            <FontAwesomeIcon icon={faPlay} />
           </button>
         ) : (
           <button className={style.pause} onClick={pauseVideo}>
-            <FontAwesomeIcon icon={faPause} />{" "}
+            <FontAwesomeIcon icon={faPause} />
           </button>
-        )}{" "}
+        )}
         <button onClick={nextVideo}>
-          <FontAwesomeIcon icon={faFastForward} />{" "}
-        </button>{" "}
+          <FontAwesomeIcon icon={faFastForward} />
+        </button>
         <button className={style.share} onClick={shareUrl}>
-          <FontAwesomeIcon icon={faShare} />{" "}
-        </button>{" "}
-      </div>{" "}
+          <FontAwesomeIcon icon={faShare} />
+        </button>
+      </div>
     </div>
   );
 }
