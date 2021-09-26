@@ -44,7 +44,7 @@ function PlayerControls({
     setCurrentTime(sliderValue);
     handleInputChange(sliderValue);
   }
-// This checks if there is a song currently onabort, if there is then update the progress animation
+// This checks if there is a song currently on, if there is then update the progress animation
   if (progressBar.current) {
     if (animation) {
       animationRef.current = requestAnimationFrame(whilePlaying);
