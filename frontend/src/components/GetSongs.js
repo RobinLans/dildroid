@@ -10,6 +10,8 @@ import style from "../styles/Getsongs.module.css";
 function GetSongs({ searchType, playlistId, inputValue, searched }) {
   const [musicList, setMusicList] = useState([]);
 
+
+  // Function that uses the passed down props from GetSongs
   function handleArtistClick(artistName) {
     console.log(artistName);
     inputValue = artistName;
@@ -17,6 +19,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     fetchMusic();
   }
 
+  //This is where we fetch the searchresult wether it's a playlist id or simply the searched term (inputvalue)
   async function fetchMusic() {
     if (playlistId) {
       const response = await fetch(`/playlist/${playlistId}`);
@@ -37,7 +40,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     fetchMusic();
   }
 
-  // If musicList is true this function will run (See line 116)
+  // If musicList is true this function will run
   // The function maps through musicList and mounts SearchItem on every instance,
   // it also sends down props that we can use later
   function listSongs() {
@@ -53,7 +56,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     ));
   }
 
-  //YT Player stuff
+  //YT Player states
   const [player, setPlayer] = useState();
   const [paused, setPaused] = useState(false);
   const [showControls, setShowControls] = useState(false);
@@ -76,10 +79,10 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     player.internalPlayer.loadPlaylist(arrayOfVideoIds, index);
   }
 
+  // setAnimation(false);
   function pausePlayer() {
     player.internalPlayer.pauseVideo();
     setPaused(true);
-    // setAnimation(false);
   }
 
   //This function gets called in PlayerControls
@@ -88,12 +91,13 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     whenUnPause();
   }
 
-  //if we move the input slider in PlayerControls this function will run
+  //If we move the input slider in PlayerControls this function will run
   function handleInputChange(e) {
     player.internalPlayer.seekTo(e, true);
     setCurrentTime(e);
   }
 
+  //Skip to the next track in the playlist
   function playNextVideoInPlaylist() {
     player.internalPlayer.nextVideo();
     whenUnPause();
@@ -103,6 +107,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
       setCurrentIndex(currentIndex + 1);
   }
 
+  //Skip to the previous track in the playlist
   function playPreviuosVideoInPlaylist() {
     player.internalPlayer.previousVideo();
     whenUnPause();
@@ -111,6 +116,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     if (currentIndex - 1 >= 0) setCurrentIndex(currentIndex - 1);
   }
 
+  //If a song is playing the paused is false and the progressbar should start 
   function whenUnPause() {
     setPaused(false);
     setAnimation(true);
