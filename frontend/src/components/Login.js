@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import style from "../styles/Login.module.css";
 import { Link } from "react-router-dom";
+
+//Component
+import style from "../styles/Login.module.css";
+
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [login, setLogin] = useState(false);
+
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -18,8 +22,9 @@ function Login() {
   async function submitForm(e) {
     e.preventDefault();
 
+    //Check if the login credentials exist in the database
     const acceptedLogin = await checkIfUserExists(email, password);
-
+    //If the user exists in the database then change setLogin to true and redirect them to the landing page
     if (acceptedLogin.success) {
       localStorage.setItem("UserId", acceptedLogin.userId);
       localStorage.setItem("user_object", JSON.stringify(acceptedLogin));
