@@ -6,7 +6,7 @@ import { faPlay, faPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
 import AddToPlaylist from "./AddToPlaylist";
 import style from "../styles/SongItem.module.css";
 
-
+// A function that sets the props for SongItem that gets accessed in other components
 function SongItem(props) {
   let { name, artist, videoId, type, duration, title, isCurrent } = props;
   const [showPlaylists, setShowPlaylists] = useState(false);
@@ -17,12 +17,14 @@ function SongItem(props) {
   let multipleArtist = [];
   let artistString = "";
 
-  //Handle if multiple artist collab on one song. Convert obj to string.
+  //If the title of a song already exists then call title, name instead
   if (title) name = title;
+  //If the title is an array (more than one artist) then create a new array with artist.map and push it into multipleArtist
   if (Array.isArray(artist)) {
     artist.map((a) => {
       multipleArtist.push(a.name);
     });
+    //Convert multipleArtist to a string and call it artistString
     artistString = multipleArtist.toString();
   }
 
@@ -83,11 +85,6 @@ function SongItem(props) {
           </div>
         </>
       )}
-      {/* {type === "artist" && (
-                                    <div>
-                                      <h4>{name}</h4>
-                                    </div>
-                                  )} */}{" "}
     </>
   );
 }
