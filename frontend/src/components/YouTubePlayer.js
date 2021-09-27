@@ -6,7 +6,7 @@ function YouTubePlayer(props) {
 
   //Here we send the player element back to SearchResult so that we can use there
   props.sendPlayerBack(videoPlayer.current);
-
+  
   const opts = {
     height: "0",
     width: "0",
@@ -19,9 +19,13 @@ function YouTubePlayer(props) {
     videoPlayer.current.internalPlayer.playVideo();
   }
 
-  function endTheVideo(e) {
-    console.log(e.target);
-  }
+
+  // async function playNextSong(){
+  //   const playList = await videoPlayer.current.internalPlayer.getPlaylist()
+  //   const state= await videoPlayer.current.internalPlayer.getPlayerState()
+  // }
+
+
 
   return (
     <div>
@@ -29,9 +33,7 @@ function YouTubePlayer(props) {
         opts={opts}
         onReady={startVideo}
         ref={videoPlayer}
-        onEnd={(e) => {
-          endTheVideo(e);
-        }}
+       
       />
     </div>
   );

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faHeart, faListOl } from "@fortawesome/free-solid-svg-icons";
 import AddToPlaylist from "./AddToPlaylist";
 import style from "../styles/SongItem.module.css";
 
 function SongItem(props) {
-  let { name, artist, videoId, type, duration, title, isCurrent } = props;
+  let { name, artist, videoId, duration, title, isCurrent, paused, playVideo, pauseVideo } = props;
   const [showPlaylists, setShowPlaylists] = useState(false);
   const [added, setAdded] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -25,7 +25,7 @@ function SongItem(props) {
   function whenAdded() {
     setAdded(true);
   }
-
+ 
   return (
     <>
       <div
@@ -45,22 +45,13 @@ function SongItem(props) {
         </div>
         <div className={style.buttonContainer}>
           <button
-            className={style.playBtn}
-            onClick={() => {
-              localStorage.setItem("id", videoId);
-              props.giveBackIndex(props.index, duration);
-            }}
-          >
-            {<FontAwesomeIcon icon={faPlay} />}
-          </button>
-          <button
             onClick={() => {
               setShowPlaylists(true);
             }}
           >
             {<FontAwesomeIcon icon={faPlus} />}
           </button>
-          <button> {<FontAwesomeIcon icon={faHeart} />}</button>
+          <button> {<FontAwesomeIcon icon={faListOl} />}</button>
         </div>
       </div>
       {!added && showPlaylists && (

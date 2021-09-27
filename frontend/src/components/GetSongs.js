@@ -27,7 +27,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
         `https://yt-music-api.herokuapp.com/api/yt/${searchType}/${inputValue}`
       );
       let result = await response.json();
-      console.log(result.content);
+
 
       setMusicList(result.content);
     }
@@ -49,6 +49,9 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
         giveBackIndex={giveBackIndexAndStartPlaylist}
         handleArtistClick={handleArtistClick}
         isCurrent={currentIndex === index}
+        paused={paused}
+        pauseVideo={pausePlayer}
+        playVideo={playPlayer}
       />
     ));
   }
@@ -81,6 +84,12 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     setPaused(true);
     // setAnimation(false);
   }
+
+  async function getPlayerState(){
+    const state = await player.internalPlayer.getPlayerState();
+    return state;
+  }
+
 
   //This function gets called in PlayerControls
   function playPlayer() {
@@ -116,6 +125,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     setAnimation(true);
   }
 
+  
   return (
     <div className={style.container}>
       <div className={style.searchResult}>{musicList && listSongs()}</div>
@@ -132,9 +142,13 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
             handleInputChange={handleInputChange}
             animation={animation}
             player={player}
+            song = {musicList[currentIndex]}
+            getPlayerState = {getPlayerState}
           />
         )}
-        <YouTubePlayer sendPlayerBack={sendPlayerBack} />{" "}
+        <YouTubePlayer 
+          sendPlayerBack={sendPlayerBack}
+           />
       </div>
     </div>
   );
