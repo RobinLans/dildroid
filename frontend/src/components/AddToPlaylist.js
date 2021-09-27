@@ -97,7 +97,7 @@ function AddToPlaylist({ ...props }) {
             ref={textInput}
             placeholder="Add new playlist"
           />
-          <button onClick={addNewPlaylist}> + </button>
+          <button onClick={addNewPlaylist} className={style.addBtn}> + </button>
         </div>
       </div>
     </>
