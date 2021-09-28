@@ -35,7 +35,7 @@
 }
 
 .searchResult {
-  margin: 1rem;
+  margin: 1rem auto auto auto;
   display: flex;
   flex-direction: column;
   align-items: center;

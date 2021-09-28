@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GetSongs from "./GetSongs";
 import { BiShuffle } from "react-icons/bi";
+import style from "../styles/Queue.module.css";
 
 function Queue() {
   const [queuedSongs, setQueuedSongs] = useState(
@@ -21,15 +22,15 @@ function Queue() {
   }
 
   return (
-    <>
+    <div className={style.container}>
       <header>
         <h1>Your queue</h1>
-        <button onClick={shuffle}>
-          <BiShuffle />
+        <button className={style.shuffleBtn} onClick={shuffle}>
+          <BiShuffle className={style.shuffleIcon} />
         </button>
       </header>
       <GetSongs queuedSongs={queuedSongs} />
-    </>
+    </div>
   );
 }
 
