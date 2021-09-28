@@ -25,19 +25,20 @@ function SongItem(props) {
   function whenAdded() {
     setAdded(true);
   }
- 
+
   return (
     <>
       <div
         className={style.songContainer}
         onClick={() => {
           localStorage.setItem("id", videoId);
+          
           props.giveBackIndex(props.index, duration);
           setPlaying(true);
         }}
       >
         <div className={style.textContainer}>
-          <h4 className={isCurrent && playing ? `${style.playing}` : ""}>
+          <h4 className={isCurrent ? `${style.playing}` : ""}>
             {name}
           </h4>
           {artist.name ? <p> {artist.name} </p> : <p> {artistString} </p>}

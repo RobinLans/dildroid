@@ -69,13 +69,13 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
   }
 
   //This function gets the index and time from SearchItem
-  function giveBackIndexAndStartPlaylist(index, time) {
-    const arrayOfVideoIds = musicList.map((song) => song.videoId);
+  async function giveBackIndexAndStartPlaylist(index,time) {
     setShowControls(true);
     whenUnPause();
     setDuration(time);
     setCurrentIndex(index);
-    player.internalPlayer.loadPlaylist(arrayOfVideoIds, index);
+    
+    await player.internalPlayer.loadVideoById(musicList[index]);
   }
 
   function pausePlayer() {
@@ -84,31 +84,20 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     // setAnimation(false);
   }
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setCurrentTime(Math.floor(player?.internalPlayer.getCurrentTime()));
-  //     if(currentTime === (Math.floor(duration/1000)-1)){
-  //       setCurrentIndex(currentIndex+1)
-  //       console.log('song ended')
-  //     }
-  //   },1000)
-
-  // },[playerState])
-
+  //get current time in song to determine if its over and update currentIndex and duration of current song.
   setInterval(async () => {
     const data = await player?.internalPlayer.getCurrentTime();
-
-    if (Math.floor(data) === Math.floor(duration / 1000) - 1) {
-      console.log('update current duratioN:',duration)
-      const songLength = musicList[currentIndex + 1].duration;
-      setDuration(songLength);
-      if (currentIndex + 1 < musicList.length + 1) {
+    
+    if (Math.floor(data) === Math.floor(duration / 1000)-1 && (Math.floor(data) !==0)) {
+        const songLength = musicList[currentIndex+1].duration;
+ 
+        if (currentIndex + 1 < musicList.length + 1) {
+          player.internalPlayer.loadVideoById(musicList[currentIndex+1])
+        setDuration(songLength);
         setCurrentIndex(currentIndex+1);
-        
       }
     }
   }, 1000);
-  console.log('index', currentIndex)
   //This function gets called in PlayerControls
   function playPlayer() {
     player.internalPlayer.playVideo();
@@ -121,7 +110,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
   }
 
   function playNextVideoInPlaylist() {
-    player.internalPlayer.nextVideo();
+    player.internalPlayer.loadVideoById(musicList[currentIndex+1]);
     whenUnPause();
     const songLength = musicList[currentIndex + 1].duration;
     setDuration(songLength);
@@ -130,7 +119,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
   }
 
   function playPreviuosVideoInPlaylist() {
-    player.internalPlayer.previousVideo();
+    player.internalPlayer.loadVideoById(musicList[currentIndex-1]);
     whenUnPause();
     const songLength = musicList[currentIndex - 1].duration;
     setDuration(songLength);
