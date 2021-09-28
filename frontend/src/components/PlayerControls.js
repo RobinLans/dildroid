@@ -76,8 +76,8 @@ function PlayerControls({
     <main>
 
       <div className={style.controlContainer}>
-      <p>{song.artist.name}</p>
-      <p>{song.name}</p>
+      <p className={style.artist}>{song.artist.name}</p>
+      <p className={style.song}>{song.name}</p>
         <div className={style.progress}>
           <div className={style.currentTime}>
             {secondsToMinutesAndSeconds(currentTime)}

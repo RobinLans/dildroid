@@ -28,7 +28,6 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
       );
       let result = await response.json();
 
-
       setMusicList(result.content);
     }
   }
@@ -60,7 +59,7 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
   const [player, setPlayer] = useState();
   const [paused, setPaused] = useState(false);
   const [showControls, setShowControls] = useState(false);
-  const [duration, setDuration] = useState("");
+  const [duration, setDuration] = useState(0);
   const [animation, setAnimation] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -85,18 +84,36 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     // setAnimation(false);
   }
 
-  async function getPlayerState(){
-    const state = await player.internalPlayer.getPlayerState();
-    return state;
-  }
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setCurrentTime(Math.floor(player?.internalPlayer.getCurrentTime()));
+  //     if(currentTime === (Math.floor(duration/1000)-1)){
+  //       setCurrentIndex(currentIndex+1)
+  //       console.log('song ended')
+  //     }
+  //   },1000)
 
+  // },[playerState])
 
+  setInterval(async () => {
+    const data = await player?.internalPlayer.getCurrentTime();
+
+    if (Math.floor(data) === Math.floor(duration / 1000) - 1) {
+      console.log('update current duratioN:',duration)
+      const songLength = musicList[currentIndex + 1].duration;
+      setDuration(songLength);
+      if (currentIndex + 1 < musicList.length + 1) {
+        setCurrentIndex(currentIndex+1);
+        
+      }
+    }
+  }, 1000);
+  console.log('index', currentIndex)
   //This function gets called in PlayerControls
   function playPlayer() {
     player.internalPlayer.playVideo();
     whenUnPause();
   }
-
   //if we move the input slider in PlayerControls this function will run
   function handleInputChange(e) {
     player.internalPlayer.seekTo(e, true);
@@ -125,7 +142,6 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
     setAnimation(true);
   }
 
-  
   return (
     <div className={style.container}>
       <div className={style.searchResult}>{musicList && listSongs()}</div>
@@ -142,13 +158,10 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
             handleInputChange={handleInputChange}
             animation={animation}
             player={player}
-            song = {musicList[currentIndex]}
-            getPlayerState = {getPlayerState}
+            song={musicList[currentIndex]}
           />
         )}
-        <YouTubePlayer 
-          sendPlayerBack={sendPlayerBack}
-           />
+        <YouTubePlayer sendPlayerBack={sendPlayerBack} />
       </div>
     </div>
   );
