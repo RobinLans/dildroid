@@ -40,10 +40,15 @@
   border: 2px solid #99d98c;
   color: #99d98c;
   background-color: transparent;
+  font-size: 1.5rem;
 }
 
 .buttonContainer button:hover {
   background-color: #16697a;
+}
+
+.removeFromQueue {
+  font-size: 1rem;
 }
 
 .hidden {

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { MdQueueMusic } from "react-icons/md";
 import AddToPlaylist from "./AddToPlaylist";
 import style from "../styles/SongItem.module.css";
 
 function SongItem(props) {
-  let { name, artist, videoId, type, duration, title, isCurrent } = props;
+  let { name, artist, videoId, type, duration, title, isCurrent, queued } =
+    props;
   const [showPlaylists, setShowPlaylists] = useState(false);
   const [added, setAdded] = useState(false);
-
-  console.log(isCurrent, name);
 
   let multipleArtist = [];
   let artistString = "";
@@ -25,6 +25,41 @@ function SongItem(props) {
 
   function whenAdded() {
     setAdded(true);
+  }
+
+  function addToQueue() {
+    const songToAdd = {
+      name,
+      videoId,
+      artist: artist.name,
+      duration: duration,
+      queued: true,
+    };
+    console.log(`added ${songToAdd.title} by ${songToAdd.artist} to the queue`);
+
+    let queueArray;
+
+    if (localStorage.getItem("queue")) {
+      queueArray = JSON.parse(localStorage.getItem("queue"));
+      queueArray.push(songToAdd);
+    } else {
+      queueArray = [songToAdd];
+    }
+
+    localStorage.setItem("queue", JSON.stringify(queueArray));
+    console.log(queueArray);
+  }
+
+  function removeFromQueue() {
+    console.log("remove this song from queue", props.index);
+    let queuedSongs = JSON.parse(localStorage.getItem("queue"));
+
+    if (props.index > -1) {
+      queuedSongs.splice(props.index, 1);
+    }
+
+    localStorage.setItem("queue", JSON.stringify(queuedSongs));
+    props.whenRemovedFromQueue();
   }
 
   return (
@@ -58,7 +93,16 @@ function SongItem(props) {
           >
             {<FontAwesomeIcon icon={faPlus} />}
           </button>
-          <button> {<FontAwesomeIcon icon={faHeart} />}</button>
+
+          {queued ? (
+            <button className={style.removeFromQueue} onClick={removeFromQueue}>
+              {<FontAwesomeIcon icon={faTrash} />}
+            </button>
+          ) : (
+            <button className={style.queueBtn} onClick={addToQueue}>
+              <MdQueueMusic />
+            </button>
+          )}
         </div>
       </div>
       {!added && showPlaylists && (

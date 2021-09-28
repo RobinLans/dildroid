@@ -45,12 +45,8 @@ function Navbar(props) {
           Playlists
         </Link>
         <br />
-        <Link
-          to="/favorites"
-          className={style.link}
-          onClick={props.clickedLink}
-        >
-          Favorites
+        <Link to="/queue" className={style.link} onClick={props.clickedLink}>
+          Queue
         </Link>
         <br />
         <Link to="/login" className={style.link} onClick={props.clickedLink}>
