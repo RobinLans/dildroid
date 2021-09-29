@@ -35,6 +35,7 @@
 }
 
 .buttonContainer button {
+<<<<<<< HEAD
     margin-left: 1rem;
     height: 2.5rem;
     width: 2.5rem;
@@ -42,10 +43,25 @@
     border: 2px solid #99d98c;
     color: #99d98c;
     background-color: transparent;
+=======
+  margin-left: 1rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50px;
+  border: 2px solid #99d98c;
+  color: #99d98c;
+  background-color: transparent;
+  font-size: 1.5rem;
+  position: relative;
+>>>>>>> dev
 }
 
 .buttonContainer button:hover {
     background-color: #16697a;
+}
+
+.removeFromQueue {
+  font-size: 1rem;
 }
 
 .hidden {
@@ -81,8 +97,44 @@
     background-color: hsl(206, 66%, 20%);
 }
 
+<<<<<<< HEAD
 .songContainer:focus {
     background-color: hsl(206, 66%, 20%) !important;
+=======
+/* TOOLTIPS */
+.queueBtn::before,
+.addToPlaylist::before,
+.removeFromQueue::before {
+  --scale: 0;
+  position: absolute;
+  top: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%) scale(var(--scale));
+  font-size: 16px;
+  transition: 50ms transform;
+  transform-origin: bottom center;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  width: max-content;
+  background-color: hsla(110, 50%, 60%, 0.9);
+  content: attr(data-tippy);
+}
+
+.queueBtn:hover::before,
+.addToPlaylist:hover::before,
+.removeFromQueue:hover::before {
+  --scale: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .playBtn {
+    display: none;
+  }
+  .songContainer {
+    width: 80%;
+  }
+>>>>>>> dev
 }
 
 .playing {

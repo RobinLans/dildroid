@@ -7,8 +7,15 @@ import PlayerControls from "./PlayerControls";
 
 import style from "../styles/Getsongs.module.css";
 
-function GetSongs({ searchType, playlistId, inputValue, searched }) {
+function GetSongs({
+  searchType,
+  playlistId,
+  inputValue,
+  searched,
+  queuedSongs,
+}) {
   const [musicList, setMusicList] = useState([]);
+  const [removedFromQueue, setRemovedFromQueue] = useState(false);
 
   function handleArtistClick(artistName) {
     console.log(artistName);
@@ -29,12 +36,21 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
       let result = await response.json();
 
       setMusicList(result.content);
+    } else if (queuedSongs && !removedFromQueue) {
+      setMusicList(queuedSongs);
+    } else if (removedFromQueue) {
+      setMusicList(JSON.parse(localStorage.getItem("queue")));
+      setRemovedFromQueue(false);
     }
   }
 
   if (searched || playlistId) {
     fetchMusic();
   }
+
+  useEffect(() => {
+    fetchMusic();
+  }, [queuedSongs]);
 
   // If musicList is true this function will run (See line 116)
   // The function maps through musicList and mounts SearchItem on every instance,
@@ -48,12 +64,18 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
         giveBackIndex={giveBackIndexAndStartPlaylist}
         handleArtistClick={handleArtistClick}
         isCurrent={currentIndex === index}
-        paused={paused}
-        pauseVideo={pausePlayer}
-        playVideo={playPlayer}
+        whenRemovedFromQueue={whenRemovedFromQueue}
       />
     ));
   }
+
+  function whenRemovedFromQueue() {
+    setRemovedFromQueue(true);
+  }
+
+  useEffect(() => {
+    if (removedFromQueue) fetchMusic();
+  }, [removedFromQueue]);
 
   //YT Player stuff
   const [player, setPlayer] = useState();

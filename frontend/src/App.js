@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import style from "./styles/App.module.css";
 import Register from "./components/Register";
+import Queue from "./components/Queue";
 
 function App() {
   const [userObject, setUserObject] = useState(
@@ -68,6 +69,7 @@ function App() {
             <Route path="/login" component={Login} />
             <PrivateRoute path="/playlists" component={Playlists} />
             <PrivateRoute path="/user-playlist/:id" component={UserPlaylist} />
+            <PrivateRoute path="/queue" component={Queue} />
             <Route path="/register-user" component={Register}></Route>
           </main>
         </Router>

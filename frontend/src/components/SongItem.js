@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faHeart, faListOl } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { MdQueueMusic } from "react-icons/md";
 import AddToPlaylist from "./AddToPlaylist";
 import style from "../styles/SongItem.module.css";
 
 function SongItem(props) {
-  let { name, artist, videoId, duration, title, isCurrent, paused, playVideo, pauseVideo } = props;
+  
+
+  let { name, artist, videoId, type, duration, title, isCurrent, queued } =
+    props;
   const [showPlaylists, setShowPlaylists] = useState(false);
   const [added, setAdded] = useState(false);
-  const [playing, setPlaying] = useState(false);
 
   let multipleArtist = [];
   let artistString = "";
@@ -26,6 +29,44 @@ function SongItem(props) {
     setAdded(true);
   }
 
+  function addToQueue() {
+    const songToAdd = {
+      name,
+      videoId,
+      artist: artist.name,
+      duration: duration,
+      queued: true,
+    };
+    console.log(`added ${songToAdd.title} by ${songToAdd.artist} to the queue`);
+
+    let queueArray;
+
+    if (localStorage.getItem("queue")) {
+      queueArray = JSON.parse(localStorage.getItem("queue"));
+      queueArray.push(songToAdd);
+    } else {
+      queueArray = [songToAdd];
+    }
+
+    localStorage.setItem("queue", JSON.stringify(queueArray));
+    console.log(queueArray);
+  }
+
+  function removeFromQueue() {
+    console.log("remove this song from queue", props.index);
+    let queuedSongs = JSON.parse(localStorage.getItem("queue"));
+
+    if (props.index > -1) {
+      queuedSongs.splice(props.index, 1);
+    }
+
+    localStorage.setItem("queue", JSON.stringify(queuedSongs));
+    props.whenRemovedFromQueue();
+  }
+
+  console.log(props);
+  console.log(artist.name);
+
   return (
     <>
       <div
@@ -34,25 +75,53 @@ function SongItem(props) {
           localStorage.setItem("id", videoId);
           
           props.giveBackIndex(props.index, duration);
-          setPlaying(true);
+        
         }}
       >
         <div className={style.textContainer}>
           <h4 className={isCurrent ? `${style.playing}` : ""}>
             {name}
           </h4>
-          {artist.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
+          {artist?.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
           {typeof artist === "string" && <p> {artist} </p>}
         </div>
         <div className={style.buttonContainer}>
           <button
+            className={style.playBtn}
+            onClick={() => {
+              localStorage.setItem("id", videoId);
+              props.giveBackIndex(props.index, duration);
+            }}
+          >
+            {<FontAwesomeIcon icon={faPlay} />}
+          </button>
+          <button
+            data-tippy="Add to playlist"
+            className={style.addToPlaylist}
             onClick={() => {
               setShowPlaylists(true);
             }}
           >
             {<FontAwesomeIcon icon={faPlus} />}
           </button>
-          <button> {<FontAwesomeIcon icon={faListOl} />}</button>
+
+          {queued ? (
+            <button
+              className={style.removeFromQueue}
+              onClick={removeFromQueue}
+              data-tippy="Remove from queue"
+            >
+              {<FontAwesomeIcon icon={faTrash} />}
+            </button>
+          ) : (
+            <button
+              data-tippy="Add to queue"
+              className={style.queueBtn}
+              onClick={addToQueue}
+            >
+              <MdQueueMusic />
+            </button>
+          )}
         </div>
       </div>
       {!added && showPlaylists && (

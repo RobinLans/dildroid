@@ -30,7 +30,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 5em;
+
   color: white;
   font-size: 20px;
 }
@@ -66,6 +66,10 @@
   font-size: 16px;
   outline: none;
   font-weight: 600;
+}
+
+.text {
+  margin-top: 0;
 }
 
 .loginBtn {

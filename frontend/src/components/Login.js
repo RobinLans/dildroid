@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import style from "../styles/Login.module.css";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -53,7 +54,7 @@ function Login() {
         {!login && (
           <>
             <form onSubmit={submitForm}>
-              <label htmlFor="email"> E - Mail </label>
+              <label htmlFor="email"></label>
               <input
                 type="text"
                 placeholder="E-Mail"
@@ -61,8 +62,9 @@ function Login() {
                 name="email"
                 onChange={handleEmailChange}
                 value={email}
+                className={style.email}
               />{" "}
-              <label htmlFor="pw"> Password </label>
+              <label htmlFor="pw"></label>
               <input
                 type="password"
                 placeholder="Password"
@@ -70,11 +72,14 @@ function Login() {
                 name="pw"
                 onChange={handlePwChange}
                 value={password}
+                className={style.password}
               />
               <input className={style.loginBtn} type="submit" value="Login" />
-              <button className={style.registerBtn}>
-                <p>Register</p>
-              </button>
+              <Link to="/register-user">
+                <button className={style.registerBtn}>
+                  <p>Register</p>
+                </button>
+              </Link>
             </form>
           </>
         )}
