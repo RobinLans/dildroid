@@ -85,19 +85,19 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
   }
 
   //get current time in song to determine if its over and update currentIndex and duration of current song.
-  setInterval(async () => {
-    const data = await player?.internalPlayer.getCurrentTime();
+  // setInterval(async () => {
+  //   const data = await player?.internalPlayer.getCurrentTime();
     
-    if (Math.floor(data) === Math.floor(duration / 1000)-1 && (Math.floor(data) !==0)) {
-        const songLength = musicList[currentIndex+1].duration;
+  //   if (Math.floor(data) === Math.floor(duration / 1000) && (Math.floor(data) !==0)) {
+  //       const songLength = musicList[currentIndex+1].duration;
  
-        if (currentIndex + 1 < musicList.length + 1) {
-          player.internalPlayer.loadVideoById(musicList[currentIndex+1])
-        setDuration(songLength);
-        setCurrentIndex(currentIndex+1);
-      }
-    }
-  }, 1000);
+  //       if (currentIndex + 1 < musicList.length + 1) {
+  //         player.internalPlayer.loadVideoById(musicList[currentIndex+1])
+  //       setDuration(songLength);
+  //       setCurrentIndex(currentIndex+1);
+  //     }
+  //   }
+  // }, 1000);
   //This function gets called in PlayerControls
   function playPlayer() {
     player.internalPlayer.playVideo();
@@ -107,6 +107,10 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
   function handleInputChange(e) {
     player.internalPlayer.seekTo(e, true);
     setCurrentTime(e);
+  }
+
+  function handleEnd(){
+    playNextVideoInPlaylist()
   }
 
   function playNextVideoInPlaylist() {
@@ -150,7 +154,11 @@ function GetSongs({ searchType, playlistId, inputValue, searched }) {
             song={musicList[currentIndex]}
           />
         )}
-        <YouTubePlayer sendPlayerBack={sendPlayerBack} />
+        <YouTubePlayer 
+        sendPlayerBack={sendPlayerBack}
+        handleEnd={handleEnd}
+        />
+
       </div>
     </div>
   );

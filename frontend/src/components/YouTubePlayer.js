@@ -33,6 +33,7 @@ function YouTubePlayer(props) {
         opts={opts}
         onReady={startVideo}
         ref={videoPlayer}
+        onEnd={props.handleEnd}     
       />
     </div>
   );
