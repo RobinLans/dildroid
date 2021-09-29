@@ -91,12 +91,12 @@ function GetSongs({
   }
 
   //This function gets the index and time from SearchItem
-  async function giveBackIndexAndStartPlaylist(index,time) {
+  async function giveBackIndexAndStartPlaylist(index, time) {
     setShowControls(true);
     whenUnPause();
     setDuration(time);
     setCurrentIndex(index);
-    
+
     await player.internalPlayer.loadVideoById(musicList[index]);
   }
 
@@ -109,10 +109,10 @@ function GetSongs({
   //get current time in song to determine if its over and update currentIndex and duration of current song.
   // setInterval(async () => {
   //   const data = await player?.internalPlayer.getCurrentTime();
-    
+
   //   if (Math.floor(data) === Math.floor(duration / 1000) && (Math.floor(data) !==0)) {
   //       const songLength = musicList[currentIndex+1].duration;
- 
+
   //       if (currentIndex + 1 < musicList.length + 1) {
   //         player.internalPlayer.loadVideoById(musicList[currentIndex+1])
   //       setDuration(songLength);
@@ -131,21 +131,21 @@ function GetSongs({
     setCurrentTime(e);
   }
 
-  function handleEnd(){
-    playNextVideoInPlaylist()
+  function handleEnd() {
+    playNextVideoInPlaylist();
   }
 
   function playNextVideoInPlaylist() {
-    player.internalPlayer.loadVideoById(musicList[currentIndex+1]);
+    player.internalPlayer.loadVideoById(musicList[currentIndex + 1]);
     whenUnPause();
-    const songLength = musicList[currentIndex + 1].duration;
+    const songLength = musicList[currentIndex + 1]?.duration;
     setDuration(songLength);
     if (currentIndex + 1 < musicList.length + 1)
       setCurrentIndex(currentIndex + 1);
   }
 
   function playPreviuosVideoInPlaylist() {
-    player.internalPlayer.loadVideoById(musicList[currentIndex-1]);
+    player.internalPlayer.loadVideoById(musicList[currentIndex - 1]);
     whenUnPause();
     const songLength = musicList[currentIndex - 1].duration;
     setDuration(songLength);
@@ -176,11 +176,7 @@ function GetSongs({
             song={musicList[currentIndex]}
           />
         )}
-        <YouTubePlayer 
-        sendPlayerBack={sendPlayerBack}
-        handleEnd={handleEnd}
-        />
-
+        <YouTubePlayer sendPlayerBack={sendPlayerBack} handleEnd={handleEnd} />
       </div>
     </div>
   );
