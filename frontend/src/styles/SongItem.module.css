@@ -88,7 +88,8 @@
 /* TOOLTIPS */
 .queueBtn::before,
 .addToPlaylist::before,
-.removeFromQueue::before {
+.removeFromQueue::before,
+.removeFromPlaylist::before {
   --scale: 0;
   position: absolute;
   top: -0.5rem;
@@ -107,7 +108,8 @@
 
 .queueBtn:hover::before,
 .addToPlaylist:hover::before,
-.removeFromQueue:hover::before {
+.removeFromQueue:hover::before,
+.removeFromPlaylist:hover::before {
   --scale: 1;
 }
 

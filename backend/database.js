@@ -10,60 +10,69 @@ const conn = sqlite("database.db");
 // all() is only for SELECT queries
 // all() returns an array with all the rows
 function all(query, params = {}) {
-    // prepare statement
+  // prepare statement
 
-    const stmt = conn.prepare(query);
+  const stmt = conn.prepare(query);
 
-    return stmt.all(params);
+  return stmt.all(params);
 }
 
 // run() is used when a query does a change in the database
 // INSERT, UPDATE, DELETE
 function run(query, params = {}) {
-    // prepare statement
-    const stmt = conn.prepare(query);
-    return stmt.run(params)
+  // prepare statement
+  const stmt = conn.prepare(query);
+  return stmt.run(params);
 }
 
 module.exports = {
-    async checkIfUserExists(credentials) {
-        const user = all(
-            `SELECT * FROM Users WHERE email = '${credentials.email}'`
-        );
+  async checkIfUserExists(credentials) {
+    const user = all(
+      `SELECT * FROM Users WHERE email = '${credentials.email}'`
+    );
 
-        return user;
-    },
-    async registerUser(user) {
-        const checkUser = await this.checkIfUserExists(user)
-        if (checkUser[0] && checkUser[0].email === user.email) {
-            console.log('Already exist')
-            return false
-        }
+    return user;
+  },
+  async registerUser(user) {
+    const checkUser = await this.checkIfUserExists(user);
+    if (checkUser[0] && checkUser[0].email === user.email) {
+      console.log("Already exist");
+      return false;
+    }
 
-        user.password = await hashPassword(user.password);
-        const query =
-            "INSERT INTO Users(name, email, password) VALUES(:name, :email, :password)";
+    user.password = await hashPassword(user.password);
+    const query =
+      "INSERT INTO Users(name, email, password) VALUES(:name, :email, :password)";
 
-        return run(query, user);
-    },
-    getPlaylists(userId) {
-        return all(`SELECT * FROM Playlist WHERE user_id = ${userId}`);
-    },
-    getPlaylistSongs(id) {
-        return all(`SELECT * FROM Playlist_songs WHERE playlist_id = ${id}`);
-    },
+    return run(query, user);
+  },
+  getPlaylists(userId) {
+    return all(`SELECT * FROM Playlist WHERE user_id = ${userId}`);
+  },
+  getPlaylistSongs(id) {
+    return all(`SELECT * FROM Playlist_songs WHERE playlist_id = ${id}`);
+  },
 
-    addPlaylist(playlist) {
-        const query = `INSERT INTO Playlist(name, user_id)
+  addPlaylist(playlist) {
+    const query = `INSERT INTO Playlist(name, user_id)
     VALUES(:name, :userId)`;
 
-        return run(query, playlist);
-    },
+    return run(query, playlist);
+  },
 
-    addSong(song) {
-        const query = `INSERT INTO Playlist_songs(playlist_id, title, videoId, artist, duration)
+  addSong(song) {
+    const query = `INSERT INTO Playlist_songs(playlist_id, title, videoId, artist, duration)
     VALUES(:playlistId, :title, :videoId, :artist, :duration)`;
 
-        return run(query, song);
-    },
+    return run(query, song);
+  },
+
+  removeSongFromPlaylist(playlistId, songId) {
+    const query = `DELETE 
+    FROM Playlist_songs
+    WHERE Playlist_songs.playlist_id = ${playlistId} 
+    AND Playlist_songs.id = ${songId}`;
+
+    return run(query);
+  },
 };

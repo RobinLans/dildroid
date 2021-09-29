@@ -6,18 +6,19 @@ import AddToPlaylist from "./AddToPlaylist";
 import style from "../styles/SongItem.module.css";
 
 function SongItem(props) {
-  console.log("slida");
-
   let { name, artist, videoId, type, duration, title, isCurrent, queued } =
     props;
   const [showPlaylists, setShowPlaylists] = useState(false);
   const [added, setAdded] = useState(false);
 
+  //The song name is called title in our db, so here we just change so that name is the
+  //same as title so that we can still use name in the JSX
+  if (title) name = title;
+
+  //Handle if multiple artist collab on one song. Convert array to string.
   let multipleArtist = [];
   let artistString = "";
 
-  //Handle if multiple artist collab on one song. Convert obj to string.
-  if (title) name = title;
   if (Array.isArray(artist)) {
     artist.map((a) => {
       multipleArtist.push(a.name);
@@ -29,7 +30,19 @@ function SongItem(props) {
     setAdded(true);
   }
 
+  async function removeFromPlaylist() {
+    const response = await fetch(
+      `/playlist-remove-song/${props.playlist_id}/${props.id}`
+    );
+    let data = await response.json();
+
+    console.log(data.success);
+  }
+
+  // Handling the queue
   function addToQueue() {
+    if (artistString) artist.name = artistString;
+
     const songToAdd = {
       name,
       videoId,
@@ -37,7 +50,6 @@ function SongItem(props) {
       duration: duration,
       queued: true,
     };
-    console.log(`added ${songToAdd.title} by ${songToAdd.artist} to the queue`);
 
     let queueArray;
 
@@ -49,11 +61,9 @@ function SongItem(props) {
     }
 
     localStorage.setItem("queue", JSON.stringify(queueArray));
-    console.log(queueArray);
   }
 
   function removeFromQueue() {
-    console.log("remove this song from queue", props.index);
     let queuedSongs = JSON.parse(localStorage.getItem("queue"));
 
     if (props.index > -1) {
@@ -63,9 +73,6 @@ function SongItem(props) {
     localStorage.setItem("queue", JSON.stringify(queuedSongs));
     props.whenRemovedFromQueue();
   }
-
-  console.log(props);
-  console.log(artist.name);
 
   return (
     <>
@@ -116,6 +123,16 @@ function SongItem(props) {
               onClick={addToQueue}
             >
               <MdQueueMusic />
+            </button>
+          )}
+
+          {props.playlist_id && (
+            <button
+              className={style.removeFromPlaylist}
+              onClick={removeFromPlaylist}
+              data-tippy="Remove from playlist"
+            >
+              {<FontAwesomeIcon icon={faTrash} />}
             </button>
           )}
         </div>
