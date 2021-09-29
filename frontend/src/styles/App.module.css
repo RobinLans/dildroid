@@ -52,5 +52,3 @@ main {
   backdrop-filter: blur(3px);
   z-index: 10;
 }
-@media screen and (max-width: 768px) {
-}

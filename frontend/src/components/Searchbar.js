@@ -54,10 +54,10 @@ function Searchbar() {
           onKeyPress={handleKeypress}
           placeholder="Search for something"
         />{" "}
-        <select value={searchType} onChange={setType}>
+        {/* <select value={searchType} onChange={setType}>
           <option value="songs"> Songs </option>{" "}
           <option value="artists"> Artists </option>{" "}
-        </select>{" "}
+        </select>{" "} */}
         <button
           className={style.searchBtn}
           onClick={() => {

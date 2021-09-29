@@ -16,7 +16,7 @@ function YouTubePlayer(props) {
   };
 
   function startVideo() {
-    videoPlayer.current.internalPlayer.playVideo();
+    videoPlayer?.current.internalPlayer.playVideo();
   }
 
   function endTheVideo(e) {

@@ -41,7 +41,6 @@ function Register() {
   return (
     <>
       <div className={style.registercontainer}>
-        <h1 className={style.title}>Spottafy</h1>
         <form className={style.regform} onSubmit={registerAccount}>
           <label htmlFor="name"></label>
           <input

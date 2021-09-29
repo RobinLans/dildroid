@@ -65,13 +65,17 @@ select {
     margin-left: 5px;
   }
 
+  .searchContainer {
+    justify-content: center;
+  }
+
   .searchBar {
     max-width: 90%;
-    margin: 0 10px auto 5rem;
+    margin: 0 10px auto auto;
   }
 
   .searchBtn {
-    margin: auto 5px auto 0;
+    margin: auto auto auto 0;
     height: 3rem;
     min-width: 3rem;
   }
@@ -81,5 +85,15 @@ select {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .searchContainer {
+    padding-right: 2rem;
+  }
+  .searchBar {
+    max-width: 90%;
+    margin: 0 10px auto 5rem;
   }
 }

@@ -51,7 +51,6 @@ function Login() {
   return (
     <>
       <div className={style.loginModal}>
-        <h1>Spottafy</h1>
         {!login && (
           <>
             <form onSubmit={submitForm}>
