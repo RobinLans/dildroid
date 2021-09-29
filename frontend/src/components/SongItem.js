@@ -6,6 +6,7 @@ import AddToPlaylist from "./AddToPlaylist";
 import style from "../styles/SongItem.module.css";
 
 function SongItem(props) {
+  
   let { name, artist, videoId, type, duration, title, isCurrent, queued } =
     props;
   const [showPlaylists, setShowPlaylists] = useState(false);
@@ -80,11 +81,15 @@ function SongItem(props) {
         className={style.songContainer}
         onClick={() => {
           localStorage.setItem("id", videoId);
+          
           props.giveBackIndex(props.index, duration);
+        
         }}
       >
         <div className={style.textContainer}>
-          {name && <h4>{name}</h4>}
+          <h4 className={isCurrent ? `${style.playing}` : ""}>
+            {name}
+          </h4>
           {artist?.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
           {typeof artist === "string" && <p> {artist} </p>}
         </div>

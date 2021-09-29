@@ -81,7 +81,7 @@ function GetSongs({
   const [player, setPlayer] = useState();
   const [paused, setPaused] = useState(false);
   const [showControls, setShowControls] = useState(false);
-  const [duration, setDuration] = useState("");
+  const [duration, setDuration] = useState(0);
   const [animation, setAnimation] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -91,13 +91,13 @@ function GetSongs({
   }
 
   //This function gets the index and time from SearchItem
-  function giveBackIndexAndStartPlaylist(index, time) {
-    const arrayOfVideoIds = musicList.map((song) => song.videoId);
+  async function giveBackIndexAndStartPlaylist(index,time) {
     setShowControls(true);
     whenUnPause();
     setDuration(time);
     setCurrentIndex(index);
-    player.internalPlayer.loadPlaylist(arrayOfVideoIds, index);
+    
+    await player.internalPlayer.loadVideoById(musicList[index]);
   }
 
   function pausePlayer() {
@@ -106,20 +106,37 @@ function GetSongs({
     // setAnimation(false);
   }
 
+  //get current time in song to determine if its over and update currentIndex and duration of current song.
+  // setInterval(async () => {
+  //   const data = await player?.internalPlayer.getCurrentTime();
+    
+  //   if (Math.floor(data) === Math.floor(duration / 1000) && (Math.floor(data) !==0)) {
+  //       const songLength = musicList[currentIndex+1].duration;
+ 
+  //       if (currentIndex + 1 < musicList.length + 1) {
+  //         player.internalPlayer.loadVideoById(musicList[currentIndex+1])
+  //       setDuration(songLength);
+  //       setCurrentIndex(currentIndex+1);
+  //     }
+  //   }
+  // }, 1000);
   //This function gets called in PlayerControls
   function playPlayer() {
     player.internalPlayer.playVideo();
     whenUnPause();
   }
-
   //if we move the input slider in PlayerControls this function will run
   function handleInputChange(e) {
     player.internalPlayer.seekTo(e, true);
     setCurrentTime(e);
   }
 
+  function handleEnd(){
+    playNextVideoInPlaylist()
+  }
+
   function playNextVideoInPlaylist() {
-    player.internalPlayer.nextVideo();
+    player.internalPlayer.loadVideoById(musicList[currentIndex+1]);
     whenUnPause();
     const songLength = musicList[currentIndex + 1].duration;
     setDuration(songLength);
@@ -128,7 +145,7 @@ function GetSongs({
   }
 
   function playPreviuosVideoInPlaylist() {
-    player.internalPlayer.previousVideo();
+    player.internalPlayer.loadVideoById(musicList[currentIndex-1]);
     whenUnPause();
     const songLength = musicList[currentIndex - 1].duration;
     setDuration(songLength);
@@ -156,9 +173,14 @@ function GetSongs({
             handleInputChange={handleInputChange}
             animation={animation}
             player={player}
+            song={musicList[currentIndex]}
           />
         )}
-        <YouTubePlayer sendPlayerBack={sendPlayerBack} />{" "}
+        <YouTubePlayer 
+        sendPlayerBack={sendPlayerBack}
+        handleEnd={handleEnd}
+        />
+
       </div>
     </div>
   );

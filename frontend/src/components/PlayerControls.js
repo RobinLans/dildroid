@@ -28,6 +28,7 @@ function PlayerControls({
   previousVideo,
   player,
   songHasEnded,
+  song
 }) {
   const progressBar = useRef(); //reference to progress bar
   const animationRef = useRef();
@@ -44,7 +45,7 @@ function PlayerControls({
     setCurrentTime(sliderValue);
     handleInputChange(sliderValue);
   }
-
+  
   if (progressBar.current) {
     if (animation) {
       animationRef.current = requestAnimationFrame(whilePlaying);
@@ -61,12 +62,11 @@ function PlayerControls({
   }
 
   function whilePlaying() {
-    // if (progressBar.current.value == NaN) return;
     try {
       progressBar.current.value = currentTime;
+      
     } catch (error) {}
   }
-
   //Here we update the current time every second
   setInterval(async () => {
     setCurrentTime(await player.internalPlayer.getCurrentTime());
@@ -74,7 +74,10 @@ function PlayerControls({
 
   return (
     <main>
+
       <div className={style.controlContainer}>
+      <p className={style.artist}>{song.artist.name}</p>
+      <p className={style.song}>{song.name}</p>
         <div className={style.progress}>
           <div className={style.currentTime}>
             {secondsToMinutesAndSeconds(currentTime)}
