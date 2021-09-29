@@ -36,6 +36,7 @@
 
 .searchResult {
   margin: 1rem auto auto auto;
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;

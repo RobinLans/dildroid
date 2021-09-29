@@ -6,6 +6,8 @@ import AddToPlaylist from "./AddToPlaylist";
 import style from "../styles/SongItem.module.css";
 
 function SongItem(props) {
+  console.log("slida");
+
   let { name, artist, videoId, type, duration, title, isCurrent, queued } =
     props;
   const [showPlaylists, setShowPlaylists] = useState(false);
@@ -62,6 +64,9 @@ function SongItem(props) {
     props.whenRemovedFromQueue();
   }
 
+  console.log(props);
+  console.log(artist.name);
+
   return (
     <>
       <div
@@ -72,8 +77,8 @@ function SongItem(props) {
         }}
       >
         <div className={style.textContainer}>
-          <h4>{name}</h4>
-          {artist.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
+          {name && <h4>{name}</h4>}
+          {artist?.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
           {typeof artist === "string" && <p> {artist} </p>}
         </div>
         <div className={style.buttonContainer}>
@@ -87,6 +92,8 @@ function SongItem(props) {
             {<FontAwesomeIcon icon={faPlay} />}
           </button>
           <button
+            data-tippy="Add to playlist"
+            className={style.addToPlaylist}
             onClick={() => {
               setShowPlaylists(true);
             }}
@@ -95,11 +102,19 @@ function SongItem(props) {
           </button>
 
           {queued ? (
-            <button className={style.removeFromQueue} onClick={removeFromQueue}>
+            <button
+              className={style.removeFromQueue}
+              onClick={removeFromQueue}
+              data-tippy="Remove from queue"
+            >
               {<FontAwesomeIcon icon={faTrash} />}
             </button>
           ) : (
-            <button className={style.queueBtn} onClick={addToQueue}>
+            <button
+              data-tippy="Add to queue"
+              className={style.queueBtn}
+              onClick={addToQueue}
+            >
               <MdQueueMusic />
             </button>
           )}

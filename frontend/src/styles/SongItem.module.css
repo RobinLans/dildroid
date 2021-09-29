@@ -41,6 +41,7 @@
   color: #99d98c;
   background-color: transparent;
   font-size: 1.5rem;
+  position: relative;
 }
 
 .buttonContainer button:hover {
@@ -82,6 +83,32 @@
 .songContainer:hover {
   cursor: pointer;
   background-color: hsl(206, 66%, 20%);
+}
+
+/* TOOLTIPS */
+.queueBtn::before,
+.addToPlaylist::before,
+.removeFromQueue::before {
+  --scale: 0;
+  position: absolute;
+  top: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%) scale(var(--scale));
+  font-size: 16px;
+  transition: 50ms transform;
+  transform-origin: bottom center;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  width: max-content;
+  background-color: hsla(110, 50%, 60%, 0.9);
+  content: attr(data-tippy);
+}
+
+.queueBtn:hover::before,
+.addToPlaylist:hover::before,
+.removeFromQueue:hover::before {
+  --scale: 1;
 }
 
 @media screen and (max-width: 768px) {
