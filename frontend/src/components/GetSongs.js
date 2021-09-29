@@ -24,12 +24,17 @@ function GetSongs({
     fetchMusic();
   }
 
+  async function fetchPlaylist() {
+    const response = await fetch(`/playlist/${playlistId}`)
+    const result = await response.json();
+    setMusicList(result.songs)
+  }
+  useEffect(() => {
+      fetchPlaylist();
+  }, [playlistId])
+
   async function fetchMusic() {
-    if (playlistId) {
-      const response = await fetch(`/playlist/${playlistId}`);
-      let result = await response.json();
-      setMusicList(result.songs);
-    } else if (inputValue) {
+    if (inputValue) {
       const response = await fetch(
         `https://yt-music-api.herokuapp.com/api/yt/${searchType}/${inputValue}`
       );
@@ -44,9 +49,6 @@ function GetSongs({
     }
   }
 
-  if (searched || playlistId) {
-    fetchMusic();
-  }
 
   useEffect(() => {
     fetchMusic();
@@ -56,7 +58,7 @@ function GetSongs({
   // The function maps through musicList and mounts SearchItem on every instance,
   // it also sends down props that we can use later
   function listSongs() {
-    return musicList.map((song, index) => (
+    return musicList?.map((song, index) => (
       <SongItem
         {...song}
         key={index}
