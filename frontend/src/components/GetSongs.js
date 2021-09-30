@@ -25,13 +25,13 @@ function GetSongs({
   }
 
   async function fetchPlaylist() {
-    const response = await fetch(`/playlist/${playlistId}`)
+    const response = await fetch(`/playlist/${playlistId}`);
     const result = await response.json();
-    setMusicList(result.songs)
+    setMusicList(result.songs);
   }
   useEffect(() => {
-      fetchPlaylist();
-  }, [playlistId])
+    fetchPlaylist();
+  }, [playlistId]);
 
   async function fetchMusic() {
     if (inputValue) {
@@ -48,7 +48,6 @@ function GetSongs({
       setRemovedFromQueue(false);
     }
   }
-
 
   useEffect(() => {
     fetchMusic();
@@ -87,6 +86,7 @@ function GetSongs({
   const [animation, setAnimation] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [repeat, setRepeat] = useState(false);
 
   function sendPlayerBack(player) {
     setPlayer(player);
@@ -122,6 +122,7 @@ function GetSongs({
   //     }
   //   }
   // }, 1000);
+
   //This function gets called in PlayerControls
   function playPlayer() {
     player.internalPlayer.playVideo();
@@ -134,7 +135,11 @@ function GetSongs({
   }
 
   function handleEnd() {
-    playNextVideoInPlaylist();
+    if (repeat) {
+      player.internalPlayer.seekTo(0, true);
+    } else {
+      playNextVideoInPlaylist();
+    }
   }
 
   function playNextVideoInPlaylist() {
@@ -176,6 +181,8 @@ function GetSongs({
             animation={animation}
             player={player}
             song={musicList[currentIndex]}
+            setRepeat={setRepeat}
+            repeat={repeat}
           />
         )}
         <YouTubePlayer sendPlayerBack={sendPlayerBack} handleEnd={handleEnd} />

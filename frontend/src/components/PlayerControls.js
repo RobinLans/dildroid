@@ -10,6 +10,7 @@ import {
   faShare,
 } from "@fortawesome/free-solid-svg-icons";
 import style from "../styles/PlayerControls.module.css";
+import { MdRepeat } from "react-icons/md";
 
 //Utils functions
 import {
@@ -28,7 +29,9 @@ function PlayerControls({
   previousVideo,
   player,
   songHasEnded,
-  song
+  song,
+  setRepeat,
+  repeat,
 }) {
   const progressBar = useRef(); //reference to progress bar
   const animationRef = useRef();
@@ -45,7 +48,7 @@ function PlayerControls({
     setCurrentTime(sliderValue);
     handleInputChange(sliderValue);
   }
-  
+
   if (progressBar.current) {
     if (animation) {
       animationRef.current = requestAnimationFrame(whilePlaying);
@@ -64,7 +67,6 @@ function PlayerControls({
   function whilePlaying() {
     try {
       progressBar.current.value = currentTime;
-      
     } catch (error) {}
   }
   //Here we update the current time every second
@@ -72,16 +74,21 @@ function PlayerControls({
     setCurrentTime(await player.internalPlayer.getCurrentTime());
   }, 1000);
 
+  function handleRepeat() {
+    setRepeat(!repeat);
+  }
+
   return (
     <main>
-
       <div className={style.controlContainer}>
-      <p className={style.artist}>{song.artist.name}</p>
-      <p className={style.song}>{song.name}</p>
+        <p className={style.artist}>{song.artist.name}</p>
+        <p className={style.song}>{song.name}</p>
         <div className={style.progress}>
+          {/* Current Time */}
           <div className={style.currentTime}>
             {secondsToMinutesAndSeconds(currentTime)}
           </div>
+          {/* Progress bar */}
           <div className={style.bar}>
             <input
               type="range"
@@ -92,14 +99,27 @@ function PlayerControls({
               max={100}
             />
           </div>
+          {/* Duration */}
           <div className={style.currentTime}>
             {millisToMinutesAndSeconds(duration)}
           </div>
         </div>
         <div className={style.buttons}>
+          {/* Repeat Button */}
+          {repeat ? (
+            <button className={style.currentlyRepeating} onClick={handleRepeat}>
+              <MdRepeat />
+            </button>
+          ) : (
+            <button className={style.repeatBtn} onClick={handleRepeat}>
+              <MdRepeat />
+            </button>
+          )}
+          {/* Previous Button */}
           <button onClick={previousVideo}>
             <FontAwesomeIcon icon={faFastBackward} />
           </button>
+          {/* Play/Pause Button */}
           {paused ? (
             <button className={style.play} onClick={playVideo}>
               <FontAwesomeIcon icon={faPlay} />
@@ -109,9 +129,11 @@ function PlayerControls({
               <FontAwesomeIcon icon={faPause} />
             </button>
           )}
+          {/* Next Button */}
           <button onClick={nextVideo}>
             <FontAwesomeIcon icon={faFastForward} />
           </button>
+          {/* Share Button */}
           <button className={style.share} onClick={shareUrl}>
             <FontAwesomeIcon icon={faShare} />
           </button>
