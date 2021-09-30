@@ -16,9 +16,7 @@ import Register from "./components/Register";
 import Queue from "./components/Queue";
 
 function App() {
-  const [userObject, setUserObject] = useState(
-    JSON.parse(localStorage.getItem("user_object"))
-  );
+
   const [mobileView, setMobileView] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showSideBar, setShowSidebar] = useState(false);

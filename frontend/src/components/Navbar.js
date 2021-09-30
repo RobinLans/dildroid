@@ -5,6 +5,11 @@ import style from "../styles/Navbar.module.css";
 function Navbar(props) {
   const [showNavbar, setShowNavbar] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [userObject, setUserObject] = useState(
+    JSON.parse(localStorage.getItem("user_object"))
+  );
+
+  
   const [hamburgerClicked, setHamburgerClicked] = useState(
     localStorage.getItem("showSidebar")
   );
@@ -14,7 +19,7 @@ function Navbar(props) {
   });
 
   useEffect(() => {
-    console.log("hejsan din sopp");
+  
   }, [hamburgerClicked]);
 
   useEffect(() => {
@@ -49,9 +54,21 @@ function Navbar(props) {
           Queue
         </Link>
         <br />
-        <Link to="/login" className={style.link} onClick={props.clickedLink}>
+        
+        {!userObject ? 
+        (<Link to="/login" className={style.link} onClick={props.clickedLink}>
           Login
-        </Link>
+        </Link>)
+        : (
+        
+          <a href="/login" className={style.link} onClick={() =>{
+            localStorage.removeItem("user_object");
+            props.clickedLink();
+          } 
+          }>
+          Logout
+        </a>
+        )}
         <br />
       </div>
     </>
