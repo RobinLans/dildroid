@@ -83,3 +83,20 @@
   top: 5px;
   left: 5px;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 70%;
+    position: absolute;
+    z-index: 50;
+  }
+
+  .playlistContainer {
+    height: 75vh;
+    margin: 0;
+  }
+
+  .nameInput {
+    width: 80%;
+  }
+}
