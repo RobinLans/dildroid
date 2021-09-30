@@ -1,24 +1,85 @@
 .modal {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .exitBtn {
   width: 2rem;
+  height: 2rem;
   color: #fff;
   background-color: transparent;
   border: none;
-  margin: 10px auto auto 0;
+  margin: 10px auto 10px 5px;
   font-size: 1rem;
+  font-size: 1.5rem;
+  border-radius: 50%;
+}
+
+.exitBtn:hover {
+  background-color: #fff;
+  color: #1e6091;
 }
 
 .playlistContainer {
   margin: auto auto auto 1rem;
-  height: 11rem;
+  height: 30rem;
   overflow: auto;
-  width: 18.5rem;
+  width: 95%;
+  border-top: 2px solid #99d98c;
+  border-bottom: 2px solid #99d98c;
+}
+
+.songContainer .playlist {
+  color: #fff;
+  font-size: 2rem;
+  margin: 0 auto 0 2rem;
+  padding: 0.5rem;
+  max-width: max-content;
+}
+
+.songContainer .playlist:hover {
+  background-color: hsl(206, 66%, 20%);
+  cursor: pointer;
+}
+
+.newPlaylist {
+  width: 100%;
+  height: 6.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nameInput {
-  margin: auto auto auto 4rem;
+  width: 20rem;
+  height: 3rem;
+  margin-right: 1rem;
+  border-radius: 50px;
+  border: 2px solid #99d98c;
+  color: #1e6091;
+  font-weight: bold;
+  padding-left: 1rem;
+}
+
+.addBtn {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  border: 2px solid #99d98c;
+  color: #99d98c;
+  font-size: 2rem;
+  position: relative;
+}
+
+.addBtn:hover {
+  color: #fff;
+  background-color: #99d98c;
+}
+
+.addBtn .icon {
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
