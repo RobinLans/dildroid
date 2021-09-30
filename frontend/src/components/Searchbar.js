@@ -17,10 +17,6 @@ function Searchbar() {
     }
   }
 
-  function setType(e) {
-    e.preventDefault();
-    setSearchType(e.target.value);
-  }
 
   const handleKeypress = (e) => {
     if (e.key === "Enter") {
@@ -39,11 +35,6 @@ function Searchbar() {
     }, 500);
   }
 
-  function showSidebar() {
-    console.log("Show menu");
-    localStorage.setItem("ShowSidebar", true);
-  }
-
   return (
     <div className={style.container}>
       <div className={style.searchContainer}>
@@ -54,10 +45,7 @@ function Searchbar() {
           onKeyPress={handleKeypress}
           placeholder="Search for something"
         />{" "}
-        {/* <select value={searchType} onChange={setType}>
-          <option value="songs"> Songs </option>{" "}
-          <option value="artists"> Artists </option>{" "}
-        </select>{" "} */}
+    
         <button
           className={style.searchBtn}
           onClick={() => {

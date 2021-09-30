@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Menu, Segment, Sidebar } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "./components/Login";

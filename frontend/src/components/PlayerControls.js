@@ -28,7 +28,6 @@ function PlayerControls({
   nextVideo,
   previousVideo,
   player,
-  songHasEnded,
   song,
   setRepeat,
   repeat,
@@ -56,19 +55,18 @@ function PlayerControls({
       cancelAnimationFrame(animationRef.current);
     }
   }
-
-  function shareUrl() {
-    let url = navigator.clipboard.writeText(
-      `https://www.youtube.com/watch?v=${localStorage.getItem("id")}`
-    );
-    console.log(url);
-  }
-
   function whilePlaying() {
     try {
       progressBar.current.value = currentTime;
     } catch (error) {}
   }
+  
+  function shareUrl() {
+    navigator.clipboard.writeText(
+      `https://www.youtube.com/watch?v=${localStorage.getItem("id")}`
+    );
+  }
+
   //Here we update the current time every second
   setInterval(async () => {
     setCurrentTime(await player.internalPlayer.getCurrentTime());

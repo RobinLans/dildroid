@@ -4,9 +4,6 @@ import GetSongs from "./GetSongs";
 
 function UserPlaylist() {
   let { id } = useParams();
-
-  console.log("asdd", id);
-
   return (
     <>
       <GetSongs playlistId={id} />

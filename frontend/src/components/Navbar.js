@@ -19,10 +19,6 @@ function Navbar(props) {
   });
 
   useEffect(() => {
-  
-  }, [hamburgerClicked]);
-
-  useEffect(() => {
     if (windowWidth <= 768) {
       setShowNavbar(false);
     }

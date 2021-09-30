@@ -4,7 +4,7 @@ import style from "../styles/AddToPlaylist.module.css";
 function AddToPlaylist({ ...props }) {
   const [userPlaylists, setUserPlaylists] = useState([]);
   const textInput = useRef();
-  console.log(userPlaylists);
+  
 
   async function fetchUsersPlaylists() {
     let userId = localStorage.getItem("UserId");
@@ -92,9 +92,9 @@ function AddToPlaylist({ ...props }) {
             ref={textInput}
             placeholder="Add new playlist"
           />
-          <button onClick={addNewPlaylist}> + </button>{" "}
-        </div>{" "}
-      </div>{" "}
+          <button onClick={addNewPlaylist}> + </button>
+        </div>
+      </div>
     </>
   );
 }

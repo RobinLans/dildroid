@@ -21,7 +21,7 @@ function Queue() {
       }
       setQueuedSongs(randomArray);
     }catch(e){
-      console.log(e)
+      
     }
 
   }

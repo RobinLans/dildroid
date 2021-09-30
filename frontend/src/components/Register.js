@@ -34,7 +34,6 @@ function Register() {
       headers: { "Content-Type": "application/json" },
     });
 
-    console.log(account);
     const data = await response.json();
   }
 

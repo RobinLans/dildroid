@@ -17,13 +17,6 @@ function GetSongs({
   const [musicList, setMusicList] = useState([]);
   const [removedFromQueue, setRemovedFromQueue] = useState(false);
 
-  function handleArtistClick(artistName) {
-    console.log(artistName);
-    inputValue = artistName;
-    searchType = "songs";
-    fetchMusic();
-  }
-
   async function fetchPlaylist() {
     const response = await fetch(`/playlist/${playlistId}`);
     const result = await response.json();
@@ -63,7 +56,6 @@ function GetSongs({
         key={index}
         index={index}
         giveBackIndex={giveBackIndexAndStartPlaylist}
-        handleArtistClick={handleArtistClick}
         isCurrent={currentIndex === index}
         whenRemovedFromQueue={whenRemovedFromQueue}
       />
@@ -88,6 +80,7 @@ function GetSongs({
   const [currentTime, setCurrentTime] = useState(0);
   const [repeat, setRepeat] = useState(false);
 
+  //Youtube player variable
   function sendPlayerBack(player) {
     setPlayer(player);
   }
@@ -105,23 +98,8 @@ function GetSongs({
   function pausePlayer() {
     player.internalPlayer.pauseVideo();
     setPaused(true);
-    // setAnimation(false);
   }
 
-  //get current time in song to determine if its over and update currentIndex and duration of current song.
-  // setInterval(async () => {
-  //   const data = await player?.internalPlayer.getCurrentTime();
-
-  //   if (Math.floor(data) === Math.floor(duration / 1000) && (Math.floor(data) !==0)) {
-  //       const songLength = musicList[currentIndex+1].duration;
-
-  //       if (currentIndex + 1 < musicList.length + 1) {
-  //         player.internalPlayer.loadVideoById(musicList[currentIndex+1])
-  //       setDuration(songLength);
-  //       setCurrentIndex(currentIndex+1);
-  //     }
-  //   }
-  // }, 1000);
 
   //This function gets called in PlayerControls
   function playPlayer() {
@@ -134,6 +112,7 @@ function GetSongs({
     setCurrentTime(e);
   }
 
+  //Runs on video end
   function handleEnd() {
     if (repeat) {
       player.internalPlayer.seekTo(0, true);

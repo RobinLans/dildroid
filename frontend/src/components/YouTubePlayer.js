@@ -18,15 +18,7 @@ function YouTubePlayer(props) {
   function startVideo() {
     videoPlayer?.current.internalPlayer.playVideo();
   }
-
-
-  // async function playNextSong(){
-  //   const playList = await videoPlayer.current.internalPlayer.getPlaylist()
-  //   const state= await videoPlayer.current.internalPlayer.getPlayerState()
-  // }
-
-
-
+  
   return (
     <div>
       <YouTube

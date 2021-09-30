@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import style from "../styles/Playlists.css"
+import style from "../styles/Playlists.module.css"
 
 function Playlists() {
   const history = useHistory();
@@ -25,13 +25,13 @@ function Playlists() {
   return (
     <>
   
-    <div className="style_container">
-    <h1 className="playlist_text">Playlists</h1>
+    <div className={style.style_container}>
+    <h1 className={style.playlist_text}>Playlists</h1>
       {" "}
       {userPlaylists &&
         userPlaylists.map((playlist) => (
           <div
-            className="song_container"
+            className={style.song_container}
             key={playlist.id}
             onClick={() => {
               goToPlaylist(playlist.id);
