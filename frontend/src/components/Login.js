@@ -83,7 +83,7 @@ function Login() {
             </form>
           </>
         )}
-        {login && <h1> Inloggad </h1>}
+        {login && <h1> Welcome! </h1>}
       </div>
     </>
   );
