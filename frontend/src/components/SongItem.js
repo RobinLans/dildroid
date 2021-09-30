@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { MdQueueMusic } from "react-icons/md";
@@ -6,11 +6,11 @@ import AddToPlaylist from "./AddToPlaylist";
 import style from "../styles/SongItem.module.css";
 
 function SongItem(props) {
-  
   let { name, artist, videoId, type, duration, title, isCurrent, queued } =
     props;
   const [showPlaylists, setShowPlaylists] = useState(false);
   const [added, setAdded] = useState(false);
+  const [removed, setRemoved] = useState(false);
 
   //The song name is called title in our db, so here we just change so that name is the
   //same as title so that we can still use name in the JSX
@@ -35,9 +35,7 @@ function SongItem(props) {
     const response = await fetch(
       `/playlist-remove-song/${props.playlist_id}/${props.id}`
     );
-    let data = await response.json();
-
-    console.log(data.success);
+    const data = await response.json();
   }
 
   // Handling the queue
@@ -76,33 +74,21 @@ function SongItem(props) {
   }
 
   return (
-    <>
-      <div
-        className={style.songContainer}
-        onClick={() => {
-          localStorage.setItem("id", videoId);
-          
-          props.giveBackIndex(props.index, duration);
-        
-        }}
-      >
-        <div className={style.textContainer}>
-          <h4 className={isCurrent ? `${style.playing}` : ""}>
-            {name}
-          </h4>
+    <>  {!removed &&
+      <div className={style.songContainer}>
+        <div
+          className={style.textContainer}
+          onClick={() => {
+            localStorage.setItem("id", videoId);
+            props.giveBackIndex(props.index, duration);
+            console.log("fail");
+          }}
+        >
+          <h4 className={isCurrent ? `${style.playing}` : ""}>{name}</h4>
           {artist?.name ? <p> {artist.name} </p> : <p> {artistString} </p>}
           {typeof artist === "string" && <p> {artist} </p>}
         </div>
         <div className={style.buttonContainer}>
-          <button
-            className={style.playBtn}
-            onClick={() => {
-              localStorage.setItem("id", videoId);
-              props.giveBackIndex(props.index, duration);
-            }}
-          >
-            {<FontAwesomeIcon icon={faPlay} />}
-          </button>
           <button
             data-tippy="Add to playlist"
             className={style.addToPlaylist}
@@ -134,14 +120,17 @@ function SongItem(props) {
           {props.playlist_id && (
             <button
               className={style.removeFromPlaylist}
-              onClick={removeFromPlaylist}
+              onClick={() => {
+                removeFromPlaylist();
+                setRemoved(true);
+              }}
               data-tippy="Remove from playlist"
             >
               {<FontAwesomeIcon icon={faTrash} />}
             </button>
           )}
         </div>
-      </div>
+      </div>}
       {!added && showPlaylists && (
         <>
           <div
@@ -160,12 +149,7 @@ function SongItem(props) {
             />
           </div>
         </>
-      )}
-      {/* {type === "artist" && (
-                                    <div>
-                                      <h4>{name}</h4>
-                                    </div>
-                                  )} */}{" "}
+          )}
     </>
   );
 }

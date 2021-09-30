@@ -9,16 +9,21 @@ function Queue() {
   );
 
   function shuffle() {
-    let randomArray = queuedSongs.slice();
+    try{
+      let randomArray = queuedSongs.slice();
 
-    for (let i = randomArray.length - 1; i > 0; i--) {
-      const randomNum = Math.floor(Math.random() * (i + 1));
-      [randomArray[i], randomArray[randomNum]] = [
-        randomArray[randomNum],
-        randomArray[i],
-      ];
+      for (let i = randomArray.length - 1; i > 0; i--) {
+        const randomNum = Math.floor(Math.random() * (i + 1));
+        [randomArray[i], randomArray[randomNum]] = [
+          randomArray[randomNum],
+          randomArray[i],
+        ];
+      }
+      setQueuedSongs(randomArray);
+    }catch(e){
+      console.log(e)
     }
-    setQueuedSongs(randomArray);
+
   }
 
   return (
