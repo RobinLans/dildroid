@@ -81,7 +81,6 @@ function SongItem(props) {
           onClick={() => {
             localStorage.setItem("id", videoId);
             props.giveBackIndex(props.index, duration);
-            console.log("fail");
           }}
         >
           <h4 className={isCurrent ? `${style.playing}` : ""}>{name}</h4>
