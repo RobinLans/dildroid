@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { FaPlus } from "react-icons/fa";
 import style from "../styles/AddToPlaylist.module.css";
 
 function AddToPlaylist({ ...props }) {
@@ -73,15 +74,15 @@ function AddToPlaylist({ ...props }) {
           {" "}
           {userPlaylists &&
             userPlaylists.map((playlist) => (
-              <div className="songContainer" key={playlist.id}>
+              <div className={style.songContainer} key={playlist.id}>
                 <h3
+                  className={style.playlist}
                   onClick={() => {
                     addToPlaylist(playlist.id);
                   }}
                 >
-                  {" "}
-                  {playlist.name}{" "}
-                </h3>{" "}
+                  {playlist.name}
+                </h3>
               </div>
             ))}{" "}
         </div>{" "}
@@ -92,9 +93,11 @@ function AddToPlaylist({ ...props }) {
             ref={textInput}
             placeholder="Add new playlist"
           />
-          <button onClick={addNewPlaylist}> + </button>
-        </div>
-      </div>
+          <button className={style.addBtn} onClick={addNewPlaylist}>
+            <FaPlus className={style.icon} />
+          </button>{" "}
+        </div>{" "}
+      </div>{" "}
     </>
   );
 }
