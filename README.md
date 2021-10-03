@@ -1,6 +1,6 @@
 # Ljudio
 
-##Working product in dev branch
+## Working product in dev branch
 
-#Made with create-react-app
+# Made with create-react-app
 
