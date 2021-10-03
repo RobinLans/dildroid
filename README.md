@@ -4,9 +4,9 @@
 ## Made with create-react-app
  Start by running npm install from root directiory then once again inside frontend directory.
  
- From frontend directory, run with: npm run start
+ From frontend directory, run with: ```npm run start```
  
- From backend directory, run with: node server
+ From backend directory, run with: ```node server```
  
 ## User info
   If register would fail try the following.
