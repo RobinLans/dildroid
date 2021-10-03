@@ -1,9 +1,5 @@
 # Ljudio
-
-
-## Made by: Robin Lans, Marcus Rydell, Felix Linné as (Rockyfelle) , Carwan as (K0zal) , Bastian as (Chukklez). 
-
-## Working product in dev branch
+ Working product in dev branch
 
 ## Made with create-react-app
  Start by running npm install from root directiory then also inside frontend directory.
@@ -20,6 +16,6 @@
   password: abc123
  
  
-
+#### Made by: Robin Lans, Marcus Rydell, Felix Linné as (Rockyfelle) , Carwan as (K0zal) , Bastian as (Chukklez). 
 
 
