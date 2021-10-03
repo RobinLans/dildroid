@@ -2,7 +2,7 @@
  Working product in dev branch
 
 ## Made with create-react-app
- Start by running npm install from root directiory then once again inside frontend directory.
+ Start by running ```npm install``` from root directiory then once again inside frontend directory.
  
  From frontend directory, run with: ```npm run start```
  
