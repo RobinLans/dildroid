@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import style from "../styles/Register.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const history = useHistory();
+  
   function emailInput(e) {
     setEmail(e.target.value);
   }
@@ -35,6 +36,9 @@ function Register() {
     });
 
     const data = await response.json();
+    if(data.success){
+      history.push('/login')
+    }
   }
 
   return (
