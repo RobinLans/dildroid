@@ -1,4 +1,7 @@
 .controlContainer {
+  display: flex;
+  position: fixed;
+  bottom: 0;
   width: 670px;
   height: 91px;
   background: #184e77;
@@ -6,10 +9,10 @@
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 .progress {
@@ -18,6 +21,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .currentTime {
   color: #fff;
 }
@@ -33,16 +37,6 @@
   outline: none;
 }
 
-/* .progressBar::before {
-      content: "";
-      height: 4px;
-      width: 100%;
-      background-color: hsl(110, 50%, 40%);
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-      position: absolute;
-    } */
-
 .progressBar::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 15px;
@@ -50,6 +44,7 @@
   border-radius: 50%;
   background-color: #fff;
 }
+
 .progressBar:hover::-webkit-slider-thumb {
   cursor: pointer;
 }
@@ -68,6 +63,7 @@
   border: 2px solid #99d98c;
   color: #fff;
 }
+
 .buttons .play,
 .buttons .pause {
   width: 2.5rem;
@@ -77,8 +73,104 @@
 
 button:hover {
   cursor: pointer;
+  background-color: rgb(83, 119, 107);
 }
 
 button:active {
   background: #99d98c;
+}
+
+.buttons .currentlyRepeating {
+  background: #99d98c;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .controlContainer {
+    width: 100%;
+    height: 10rem;
+    border-radius: 0;
+    border: none;
+    border-top: 3px solid #99d98c;
+    align-items: space-between;
+    justify-content: space-between;
+  }
+  .currentTime {
+    display: none;
+  }
+  .buttons {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .buttons button {
+    width: 5rem;
+    height: 5rem;
+    font-size: 2rem;
+    border: 6px solid #99d98c;
+  }
+  .buttons .play,
+  .buttons .pause {
+    margin: auto 2rem auto 2rem;
+    width: 6rem;
+    height: 6rem;
+    font-size: 2.5rem;
+  }
+  .share {
+    display: none;
+  }
+  .progress {
+    position: relative;
+  }
+  .bar {
+    width: 100%;
+    height: 10px;
+    background-color: #99d98c;
+  }
+  .progressBar {
+    appearance: none;
+    position: absolute;
+    bottom: 0;
+    background-color: hsl(110, 50%, 70%);
+    border-radius: 0;
+    width: 100%;
+    height: 10px;
+    outline: none;
+    margin: 0;
+  }
+  .progressBar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+
+  .buttons .currentlyRepeating {
+    position: absolute;
+    background: #99d98c;
+    color: #fff;
+    right: -65%;
+    top: 5%;
+  }
+  .buttons .repeatBtn {
+    position: absolute;
+    right: -65%;
+    top: 5%;
+  }
+}
+
+.artist {
+  position: absolute;
+  color: white;
+  left: 5%;
+  top: 20%;
+}
+
+.song {
+  position: absolute;
+  color: white;
+  left: 5%;
+  top: 50%;
+  word-wrap: wrap;
+  max-width: 30%;
 }

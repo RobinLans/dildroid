@@ -1,0 +1,189 @@
+.songContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 600px;
+    height: 5rem;
+    border: 3px solid #99d98c;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+
+.textContainer {
+    width: 72.5%;
+}
+
+.songContainer h4 {
+    width: 15rem;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    color: #ffffff;
+    margin: 10px 0 0 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.songContainer p {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.79);
+    margin: 5px 0 10px 1rem;
+}
+
+.buttonContainer {
+    margin-right: 1rem;
+}
+
+.buttonContainer button {
+    margin-left: 1rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50px;
+    border: 2px solid #99d98c;
+    color: #99d98c;
+    background-color: transparent;
+    font-size: 1.5rem;
+    position: relative;
+}
+
+.buttonContainer button:hover {
+    background-color: #16697a;
+}
+
+.buttonContainer button:active {
+    background: #99d98c;
+    color: #fff;
+}
+
+.removeFromQueue {
+    font-size: 1rem;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.playListModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 15rem;
+    width: 20rem;
+    background-color: #184e77;
+    border-radius: 10px;
+    color: white;
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 40rem;
+    width: 50rem;
+    background-color: #184e77;
+    border-radius: 10px;
+    color: white;
+    z-index: 51;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 5;
+}
+
+.songContainer:hover {
+    cursor: pointer;
+    background-color: hsl(206, 66%, 20%);
+}
+
+
+/* TOOLTIPS */
+
+.queueBtn::before,
+.addToPlaylist::before,
+.removeFromQueue::before,
+.removeFromPlaylist::before {
+    --scale: 0;
+    position: absolute;
+    top: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%) scale(var(--scale));
+    font-size: 16px;
+    transition: 50ms transform;
+    transform-origin: bottom center;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    width: max-content;
+    background-color: hsla(110, 50%, 60%, 0.9);
+    content: attr(data-tippy);
+}
+
+.queueBtn:hover::before,
+.addToPlaylist:hover::before,
+.removeFromQueue:hover::before,
+.removeFromPlaylist:hover::before {
+    --scale: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .playBtn {
+        display: none;
+    }
+    .songContainer {
+        width: 80%;
+    }
+    .playListModal {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.playing {
+    color: #99d98c !important;
+}
+
+@media screen and (max-width: 768px) {
+    .playBtn {
+        display: none;
+    }
+    .songContainer {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .songContainer h4 {
+        /* max-width: 9rem; */
+        max-width: 90%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .textContainer {
+        max-width: 60%;
+    }
+    .buttonContainer {
+        display: flex;
+        justify-content: center;
+        width: 40%;
+        margin-right: 5px;
+    }
+}
+
+@media screen and (max-width: 325px) {
+    .buttonContainer button {
+        margin-left: 10px;
+    }
+}

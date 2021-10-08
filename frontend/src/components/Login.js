@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import style from "../styles/Login.module.css";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  let [login, setLogin] = useState(false);
-  let [exit, setExit] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [login, setLogin] = useState(false);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -22,10 +21,10 @@ function Login() {
     const acceptedLogin = await checkIfUserExists(email, password);
 
     if (acceptedLogin.success) {
+      localStorage.setItem("UserId", acceptedLogin.userId);
+      localStorage.setItem("user_object", JSON.stringify(acceptedLogin));
       setLogin(true);
-      setTimeout(() => {
-        handleExit();
-      }, 1000);
+      window.location.href = "/";
     }
   }
 
@@ -35,7 +34,7 @@ function Login() {
       password,
     };
 
-    let response = await fetch("/api/login", {
+    let response = await fetch("/login", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {
@@ -48,31 +47,13 @@ function Login() {
     return data;
   }
 
-  function openLoginModal() {
-    setShowLoginModal(true);
-    setExit(false);
-  }
-
-  function handleExit() {
-    setExit(true);
-    setShowLoginModal(false);
-  }
-
   return (
     <>
-      <h3 onClick={openLoginModal}>Login</h3>
-      {showLoginModal && (
-        <div
-          className={
-            exit ? `${style.loginModal} ${style.hidden}` : `${style.loginModal}`
-          }
-        >
-          <button className={style.exitBtn} onClick={handleExit}>
-            X
-          </button>
-          {!login && (
+      <div className={style.loginModal}>
+        {!login && (
+          <>
             <form onSubmit={submitForm}>
-              <label htmlFor="email">E-Mail</label>
+              <label htmlFor="email"></label>
               <input
                 type="text"
                 placeholder="E-Mail"
@@ -80,8 +61,9 @@ function Login() {
                 name="email"
                 onChange={handleEmailChange}
                 value={email}
-              />
-              <label htmlFor="pw">Password</label>
+                className={style.email}
+              />{" "}
+              <label htmlFor="pw"></label>
               <input
                 type="password"
                 placeholder="Password"
@@ -89,13 +71,19 @@ function Login() {
                 name="pw"
                 onChange={handlePwChange}
                 value={password}
+                className={style.password}
               />
               <input className={style.loginBtn} type="submit" value="Login" />
+              <Link to="/register-user">
+                <button className={style.registerBtn}>
+                  <p>Register</p>
+                </button>
+              </Link>
             </form>
-          )}
-          {login && <h1>Inloggad</h1>}
-        </div>
-      )}
+          </>
+        )}
+        {login && <h1> Welcome! </h1>}
+      </div>
     </>
   );
 }

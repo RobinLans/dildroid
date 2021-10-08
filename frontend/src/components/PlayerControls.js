@@ -7,8 +7,10 @@ import {
   faPause,
   faFastBackward,
   faFastForward,
+  faShare,
 } from "@fortawesome/free-solid-svg-icons";
 import style from "../styles/PlayerControls.module.css";
+import { MdRepeat } from "react-icons/md";
 
 //Utils functions
 import {
@@ -26,7 +28,9 @@ function PlayerControls({
   nextVideo,
   previousVideo,
   player,
-  songHasEnded,
+  song,
+  setRepeat,
+  repeat,
 }) {
   const progressBar = useRef(); //reference to progress bar
   const animationRef = useRef();
@@ -51,9 +55,16 @@ function PlayerControls({
       cancelAnimationFrame(animationRef.current);
     }
   }
-
   function whilePlaying() {
-    progressBar.current.value = currentTime;
+    try {
+      progressBar.current.value = currentTime;
+    } catch (error) {}
+  }
+  
+  function shareUrl() {
+    navigator.clipboard.writeText(
+      `https://www.youtube.com/watch?v=${localStorage.getItem("id")}`
+    );
   }
 
   //Here we update the current time every second
@@ -61,45 +72,72 @@ function PlayerControls({
     setCurrentTime(await player.internalPlayer.getCurrentTime());
   }, 1000);
 
-  return (
-    <div className={style.controlContainer}>
-      <div className={style.progress}>
-        <div className={style.currentTime}>
-          {secondsToMinutesAndSeconds(currentTime)}
-        </div>
-        <div>
-          <input
-            type="range"
-            defaultValue="0"
-            onChange={getValue}
-            className={style.progressBar}
-            ref={progressBar}
-            max={100}
-          />
-        </div>
-        <div className={style.currentTime}>
-          {millisToMinutesAndSeconds(duration)}
-        </div>
-      </div>
-      <div className={style.buttons}>
-        <button onClick={previousVideo}>
-          <FontAwesomeIcon icon={faFastBackward} />
-        </button>
-        {paused ? (
-          <button className={style.play} onClick={playVideo}>
-            <FontAwesomeIcon icon={faPlay} />
-          </button>
-        ) : (
-          <button className={style.pause} onClick={pauseVideo}>
-            <FontAwesomeIcon icon={faPause} />
-          </button>
-        )}
+  function handleRepeat() {
+    setRepeat(!repeat);
+  }
 
-        <button onClick={nextVideo}>
-          <FontAwesomeIcon icon={faFastForward} />
-        </button>
+  return (
+    <main>
+      <div className={style.controlContainer}>
+        <p className={style.artist}>{song.artist.name}</p>
+        <p className={style.song}>{song.name}</p>
+        <div className={style.progress}>
+          {/* Current Time */}
+          <div className={style.currentTime}>
+            {secondsToMinutesAndSeconds(currentTime)}
+          </div>
+          {/* Progress bar */}
+          <div className={style.bar}>
+            <input
+              type="range"
+              defaultValue="0"
+              onChange={getValue}
+              className={style.progressBar}
+              ref={progressBar}
+              max={100}
+            />
+          </div>
+          {/* Duration */}
+          <div className={style.currentTime}>
+            {millisToMinutesAndSeconds(duration)}
+          </div>
+        </div>
+        <div className={style.buttons}>
+          {/* Repeat Button */}
+          {repeat ? (
+            <button className={style.currentlyRepeating} onClick={handleRepeat}>
+              <MdRepeat />
+            </button>
+          ) : (
+            <button className={style.repeatBtn} onClick={handleRepeat}>
+              <MdRepeat />
+            </button>
+          )}
+          {/* Previous Button */}
+          <button onClick={previousVideo}>
+            <FontAwesomeIcon icon={faFastBackward} />
+          </button>
+          {/* Play/Pause Button */}
+          {paused ? (
+            <button className={style.play} onClick={playVideo}>
+              <FontAwesomeIcon icon={faPlay} />
+            </button>
+          ) : (
+            <button className={style.pause} onClick={pauseVideo}>
+              <FontAwesomeIcon icon={faPause} />
+            </button>
+          )}
+          {/* Next Button */}
+          <button onClick={nextVideo}>
+            <FontAwesomeIcon icon={faFastForward} />
+          </button>
+          {/* Share Button */}
+          <button className={style.share} onClick={shareUrl}>
+            <FontAwesomeIcon icon={faShare} />
+          </button>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
 
